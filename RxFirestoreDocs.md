@@ -3,7 +3,7 @@
 [`RxFirestoreDb`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/RxFirestoreDb.java) is the main class for interacting with the RxJava implementation of Cloud Firestore. This class will contain the methods to help you create, delete, update and listen for changes from documents and collections.
 
 ### Add Data
-###### `RxFirestoreDb.set()`
+##### `RxFirestoreDb.set()`
 Used to create or overwrite a document at the given `DocumentReference`. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
 
 Relevant class: [`SetOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/SetOnSubscribe.java)
@@ -12,7 +12,7 @@ Relevant Firestore documentation [here](https://firebase.google.com/docs/firesto
 
 ***
 
-###### `RxFirestoreDb.add()`
+##### `RxFirestoreDb.add()`
 Used to add a document at the given `CollectionReference`. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
 
 This is similar to `RxFirestoreDb.set()`, but allows Firestore to [auto-generate an ID]() for this document.
@@ -24,7 +24,7 @@ Relevant Firestore documentation [here](https://firebase.google.com/docs/firesto
 ***
 
 ### Delete Data
-###### `RxFirestoreDb.delete()`
+##### `RxFirestoreDb.delete()`
 Used to delete a document at the given `DocumentReference`. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
 
 Relevant class: [`DeleteOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DeleteOnSubscribe.java)
@@ -34,7 +34,7 @@ Relevant Firestore documentation [here](https://firebase.google.com/docs/firesto
 ***
 
 ### Listen for Realtime Updates
-###### `RxFirestoreDb.queryChanges()`
+##### `RxFirestoreDb.queryChanges()`
 Used to listen for changes at the given `Query`. Returns an `Observable<QuerySnapshot>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
 
 It's important that you keep track of the subscription and call `dispose()` when it's no longer needed. From the Firestore [documentation](https://firebase.google.com/docs/firestore/query-data/listen): 

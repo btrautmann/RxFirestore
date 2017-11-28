@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/RxFirestore.iml" filepath="$PROJECT_DIR$/RxFirestore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rxfirestore/rxfirestore.iml" filepath="$PROJECT_DIR$/rxfirestore/rxfirestore.iml" />
+    </modules>
+  </component>
+</project>

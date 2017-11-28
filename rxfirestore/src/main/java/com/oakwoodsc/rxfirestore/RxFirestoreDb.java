@@ -3,6 +3,7 @@ package com.oakwoodsc.rxfirestore;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -24,15 +25,19 @@ public final class RxFirestoreDb {
 
     @NonNull
     @CheckResult
-    public static <T> Completable set(
-            @NonNull DocumentReference ref, @NonNull T value) {
-        return Completable.create(new SetOnSubscribe<>(ref, value));
+    public static <T> Completable set(@NonNull DocumentReference reference, @NonNull T value) {
+        return Completable.create(new SetOnSubscribe<>(reference, value));
     }
 
     @NonNull
     @CheckResult
-    public static Completable delete(
-            @NonNull DocumentReference ref) {
-        return Completable.create(new DeleteOnSubscribe(ref));
+    public static Completable delete(@NonNull DocumentReference reference) {
+        return Completable.create(new DeleteOnSubscribe(reference));
+    }
+
+    @NonNull
+    @CheckResult
+    public static <T> Completable add(@NonNull CollectionReference reference, T value) {
+        return Completable.create(new AddOnSubscribe<>(reference, value));
     }
 }

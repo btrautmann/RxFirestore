@@ -4,7 +4,7 @@ An RxJava2 wrapper for [Cloud Firestore](https://firebase.google.com/docs/firest
 #### _Note: This library has not yet been published and does not support all Firestore functionality._
 
 #### What _does_ it support, then?
-Check out the RxFirestore docs.
+Check out the [RxFirestore docs](https://github.com/btrautmann/RxFirestore/blob/master/RxFirestoreDocs.md).
 
 **Currently developed with:**
 - Firestore 11.4.2

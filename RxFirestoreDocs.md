@@ -31,6 +31,8 @@ Relevant class: [`RunTransactionOnSubscribe`](https://github.com/btrautmann/RxFi
 
 Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/transactions).
 
+***
+
 ##### `RxFirestoreDb.commitBatch()`
 Used to commit a `WriteBatch` (a series of writes only). Takes the `WriteBatch` to be committed. Returns a `Completable` Subscribers should implement`onComplete()` and `onError()`.
 

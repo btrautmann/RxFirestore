@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
+import com.google.firebase.firestore.WriteBatch;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -48,5 +49,11 @@ public final class RxFirestoreDb {
     public static <T> Completable runTransaction(@NonNull FirebaseFirestore database,
                                                  @NonNull Transaction.Function<T> transaction) {
         return Completable.create(new RunTransactionOnSubscribe<T>(database, transaction));
+    }
+
+    @NonNull
+    @CheckResult
+    public static Completable commitBatch(@NonNull WriteBatch batch) {
+        return Completable.create(new CommitBatchOnSubscribe(batch));
     }
 }

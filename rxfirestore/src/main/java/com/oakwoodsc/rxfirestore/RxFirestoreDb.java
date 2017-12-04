@@ -5,8 +5,10 @@ import android.support.annotation.NonNull;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -39,5 +41,12 @@ public final class RxFirestoreDb {
     @CheckResult
     public static <T> Completable add(@NonNull CollectionReference reference, T value) {
         return Completable.create(new AddOnSubscribe<>(reference, value));
+    }
+
+    @NonNull
+    @CheckResult
+    public static <T> Completable runTransaction(@NonNull FirebaseFirestore database,
+                                                 @NonNull Transaction.Function<T> transaction) {
+        return Completable.create(new RunTransactionOnSubscribe<T>(database, transaction));
     }
 }

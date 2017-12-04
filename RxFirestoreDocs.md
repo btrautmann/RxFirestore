@@ -25,7 +25,7 @@ Relevant Firestore documentation [here](https://firebase.google.com/docs/firesto
 
 ### Transactions and Batched Writes
 ##### `RxFirestoreDb.runTransaction()`
-Used to run a transaction (a series of reads and writes) for the given database instance. Takes the `FirebaseFirestore` (database) to run transacton on, and the `Transaction<TReturn>`. Returns a `Completable<TReturn>`. Subscribers should implement `onComplete()` and `onError()`
+Used to run a transaction (a series of reads and writes) for the given database instance. Takes the `FirebaseFirestore` (database) to run `Transaction` on, and the `Transaction<TReturn>`. Returns a `Completable<TReturn>`. Subscribers should implement `onComplete()` and `onError()`
 
 Relevant class: [`RunTransactionOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/RunTransactionOnSubscribe.java)
 

@@ -11,6 +11,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
 
+import java.util.concurrent.Executor;
+
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 
@@ -56,4 +58,14 @@ public final class RxFirestoreDb {
     public static Completable commitBatch(@NonNull WriteBatch batch) {
         return Completable.create(new CommitBatchOnSubscribe(batch));
     }
+
+    @NonNull
+    @CheckResult
+    public static Completable deleteCollection(@NonNull CollectionReference collectionReference,
+                                               int batchSize, @NonNull Executor executor) {
+        return Completable.create(new DeleteCollectionOnSubscribe(collectionReference,
+                batchSize, executor));
+    }
+
+
 }

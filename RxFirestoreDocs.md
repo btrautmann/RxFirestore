@@ -55,9 +55,11 @@ Relevant Firestore documentation [here](https://firebase.google.com/docs/firesto
 ##### `RxFirestoreDb.deleteCollection()`
 Delete an entire collection. Takes the `CollectionReference` for which to delete all documents, the batch size to delete in (i.e. how many documents are deleted at once, done repeatedly until entire collection is deleted), and an `Executor` to use when running the `Task`. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
 
-**Note**: I'm currently researching ways to get rid of the last argument and do the backgrounding fully with RxJava.
+**Notes**: I'm currently researching ways to get rid of the last argument and do the backgrounding fully with RxJava. The current implementation of `DeleteCollectionOnSubscribe` is exactly how Firebase recommends doing it in the documentation.
 
 Relevant class: [`DeleteCollectionOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DeleteCollectionOnSubscribe.java)
+
+Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/delete-data).
 
 ***
 

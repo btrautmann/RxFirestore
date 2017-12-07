@@ -4,7 +4,7 @@
 
 ### Add Data
 ##### `RxFirestoreDb.set()`
-Used to create or overwrite a document at the given `DocumentReference`. Takes the `DocumentReference` and `T` value to be set. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
+Create or overwrite a document at the given `DocumentReference`. Takes the `DocumentReference` and `T` value to be set. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
 
 Relevant class: [`SetOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/SetOnSubscribe.java)
 
@@ -13,7 +13,7 @@ Relevant Firestore documentation [here](https://firebase.google.com/docs/firesto
 ***
 
 ##### `RxFirestoreDb.add()`
-Used to add a document at the given `CollectionReference`. Takes the `DocumentReference` and `T` value to be added. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
+Add a document at the given `CollectionReference`. Takes the `DocumentReference` and `T` value to be added. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
 
 This is similar to `RxFirestoreDb.set()`, but allows Firestore to [auto-generate an ID]() for this document.
 
@@ -25,7 +25,7 @@ Relevant Firestore documentation [here](https://firebase.google.com/docs/firesto
 
 ### Transactions and Batched Writes
 ##### `RxFirestoreDb.runTransaction()`
-Used to run a transaction (a series of reads and writes) for the given database instance. Takes the `FirebaseFirestore` (database) to run `Transaction` on, and the `Transaction<TReturn>`. Returns a `Completable<TReturn>`. Subscribers should implement `onComplete()` and `onError()`
+Run a transaction (a series of reads and writes) for the given database instance. Takes the `FirebaseFirestore` (database) to run `Transaction` on, and the `Transaction<TReturn>`. Returns a `Completable<TReturn>`. Subscribers should implement `onComplete()` and `onError()`
 
 Relevant class: [`RunTransactionOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/RunTransactionOnSubscribe.java)
 
@@ -34,7 +34,7 @@ Relevant Firestore documentation [here](https://firebase.google.com/docs/firesto
 ***
 
 ##### `RxFirestoreDb.commitBatch()`
-Used to commit a `WriteBatch` (a series of writes only). Takes the `WriteBatch` to be committed. Returns a `Completable` Subscribers should implement`onComplete()` and `onError()`.
+Commit a `WriteBatch` (a series of writes only). Takes the `WriteBatch` to be committed. Returns a `Completable` Subscribers should implement`onComplete()` and `onError()`.
 
 Relevant class: [`CommitBatchOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/CommitBatchOnSubscribe.java)
 
@@ -44,7 +44,7 @@ Relevant Firestore documentation [here](https://firebase.google.com/docs/firesto
 
 ### Delete Data
 ##### `RxFirestoreDb.delete()`
-Used to delete a document at the given `DocumentReference`. Takes the `DocumentReference` to delete. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
+Delete a document at the given `DocumentReference`. Takes the `DocumentReference` to delete. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
 
 Relevant class: [`DeleteOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DeleteOnSubscribe.java)
 
@@ -52,9 +52,18 @@ Relevant Firestore documentation [here](https://firebase.google.com/docs/firesto
 
 ***
 
+##### `RxFirestoreDb.deleteCollection()`
+Delete an entire collection. Takes the `CollectionReference` for which to delete all documents, the batch size to delete in (i.e. how many documents are deleted at once, done repeatedly until entire collection is deleted), and an `Executor` to use when running the `Task`. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
+
+**Note**: I'm currently researching ways to get rid of the last argument and do the backgrounding fully with RxJava.
+
+Relevant class: [`DeleteCollectionOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DeleteCollectionOnSubscribe.java)
+
+***
+
 ### Listen for Realtime Updates
 ##### `RxFirestoreDb.queryChanges()`
-Used to listen for changes at the given `Query`. Takes the `Query` to listen to. Returns an `Observable<QuerySnapshot>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
+Listen for changes at the given `Query`. Takes the `Query` to listen to. Returns an `Observable<QuerySnapshot>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
 
 It's important that you keep track of the subscription and call `dispose()` when it's no longer needed. From the Firestore [documentation](https://firebase.google.com/docs/firestore/query-data/listen): 
 

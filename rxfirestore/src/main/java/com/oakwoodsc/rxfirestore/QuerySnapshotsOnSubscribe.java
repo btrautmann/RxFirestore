@@ -34,7 +34,7 @@ public class QuerySnapshotsOnSubscribe implements ObservableOnSubscribe<QuerySna
                     if (e == null) {
                         emitter.onNext(querySnapshot);
                     } else {
-                        emitter.onError(new Throwable(e.getMessage()));
+                        emitter.onError(e);
                     }
                 }
 

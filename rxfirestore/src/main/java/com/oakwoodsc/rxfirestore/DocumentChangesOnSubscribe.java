@@ -38,7 +38,7 @@ public class DocumentChangesOnSubscribe implements ObservableOnSubscribe<Documen
                         }
 
                     } else {
-                        emitter.onError(new Throwable(e.getMessage()));
+                        emitter.onError(e);
                     }
                 }
 

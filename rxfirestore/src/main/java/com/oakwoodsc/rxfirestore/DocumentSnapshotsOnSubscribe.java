@@ -33,7 +33,7 @@ public class DocumentSnapshotsOnSubscribe implements ObservableOnSubscribe<Docum
                     if (e == null) {
                         emitter.onNext(documentSnapshot);
                     } else {
-                        emitter.onError(new Throwable(e.getMessage()));
+                        emitter.onError(e);
                     }
                 }
             }

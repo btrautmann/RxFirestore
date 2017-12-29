@@ -99,4 +99,4 @@ subscription = RxFirestoreDb.documentChanges(query)
 Relevant class: [`DocumentChangesOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DocumentChangesOnSubscribe.java)
 
 
-*_It's important that you keep track of the subscription and call `dispose()` when it's no longer needed. From the Firestore [documentation](https://firebase.google.com/docs/firestore/query-data/listen): _
+* _It's important that you keep track of realtime update subscriptions and call `dispose()` when they're no longer needed. From the Firestore [documentation](https://firebase.google.com/docs/firestore/query-data/listen):_

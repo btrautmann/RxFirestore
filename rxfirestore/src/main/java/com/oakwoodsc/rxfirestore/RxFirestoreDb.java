@@ -17,6 +17,7 @@ import java.util.concurrent.Executor;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Created by Brandon Trautmann
@@ -64,7 +65,7 @@ public final class RxFirestoreDb {
     @CheckResult
     public static <T> Completable runTransaction(@NonNull FirebaseFirestore database,
                                                  @NonNull Transaction.Function<T> transaction) {
-        return Completable.create(new RunTransactionOnSubscribe<T>(database, transaction));
+        return Completable.create(new RunTransactionOnSubscribe<>(database, transaction));
     }
 
     @NonNull
@@ -79,6 +80,12 @@ public final class RxFirestoreDb {
                                                int batchSize, @NonNull Executor executor) {
         return Completable.create(new DeleteCollectionOnSubscribe(collectionReference,
                 batchSize, executor));
+    }
+
+    @NonNull
+    @CheckResult
+    public static Single<QuerySnapshot> getCollection(@NonNull CollectionReference collectionReference) {
+        return Single.create(new GetCollectionOnSubscribe(collectionReference));
     }
 
 

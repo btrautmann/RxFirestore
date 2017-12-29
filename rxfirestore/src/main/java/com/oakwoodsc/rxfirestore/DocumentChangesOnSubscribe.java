@@ -29,11 +29,11 @@ public class DocumentChangesOnSubscribe implements ObservableOnSubscribe<Documen
     public void subscribe(final ObservableEmitter<DocumentChange> emitter) throws Exception {
         final EventListener<QuerySnapshot> listener = new EventListener<QuerySnapshot>() {
             @Override
-            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+            public void onEvent(QuerySnapshot querySnapshot, FirebaseFirestoreException e) {
 
                 if (!emitter.isDisposed()) {
                     if (e == null) {
-                        for (DocumentChange change : documentSnapshots.getDocumentChanges()) {
+                        for (DocumentChange change : querySnapshot.getDocumentChanges()) {
                             emitter.onNext(change);
                         }
 

@@ -111,7 +111,8 @@ RxFirestoreDb.documentChanges(query)
 
 Relevant class: [`DocumentChangesOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DocumentChangesOnSubscribe.java)
 
+***
 
-Note on Realtime Updates: _It's important that you keep track of realtime update subscriptions and call `dispose()` when they're no longer needed. From the Firestore [documentation](https://firebase.google.com/docs/firestore/query-data/listen):_
+#### Note on Realtime Updates: _It's important that you keep track of realtime update subscriptions and call `dispose()` when they're no longer needed. From the Firestore [documentation](https://firebase.google.com/docs/firestore/query-data/listen):_
 
 > When you are no longer interested in listening to your data, you must detach your listener so that your event callbacks stop getting called. This allows the client to stop using bandwidth to receive updates.

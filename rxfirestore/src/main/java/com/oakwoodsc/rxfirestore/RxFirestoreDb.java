@@ -13,6 +13,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
 
+import java.util.HashMap;
 import java.util.concurrent.Executor;
 
 import io.reactivex.Completable;
@@ -47,6 +48,12 @@ public final class RxFirestoreDb {
     @CheckResult
     public static <T> Completable set(@NonNull DocumentReference reference, @NonNull T value) {
         return Completable.create(new SetOnSubscribe<>(reference, value));
+    }
+
+    @NonNull
+    @CheckResult
+    public static Completable update(@NonNull DocumentReference reference, @NonNull HashMap<String, Object> updates) {
+        return Completable.create(new UpdateOnSubscribe(reference, updates));
     }
 
     @NonNull

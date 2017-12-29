@@ -15,12 +15,12 @@ import io.reactivex.functions.Action;
  * Created by Brandon Trautmann
  */
 
-public class QueryChangesOnSubscribe implements ObservableOnSubscribe<QuerySnapshot> {
+public class QuerySnapshotsOnSubscribe implements ObservableOnSubscribe<QuerySnapshot> {
 
     private final Query query;
     private ListenerRegistration registration;
 
-    public QueryChangesOnSubscribe(Query query) {
+    public QuerySnapshotsOnSubscribe(Query query) {
         this.query = query;
     }
 

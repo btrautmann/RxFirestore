@@ -4,7 +4,9 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -24,8 +26,20 @@ public final class RxFirestoreDb {
 
     @NonNull
     @CheckResult
-    public static Observable<QuerySnapshot> queryChanges(@NonNull Query query) {
-        return Observable.create(new QueryChangesOnSubscribe(query));
+    public static Observable<DocumentSnapshot> documentSnapshots(@NonNull DocumentReference documentReference) {
+        return Observable.create(new DocumentSnapshotsOnSubscribe(documentReference));
+    }
+
+    @NonNull
+    @CheckResult
+    public static Observable<QuerySnapshot> querySnapshots(@NonNull Query query) {
+        return Observable.create(new QuerySnapshotsOnSubscribe(query));
+    }
+
+    @NonNull
+    @CheckResult
+    public static Observable<DocumentChange> documentChanges(@NonNull Query query) {
+        return Observable.create(new DocumentChangesOnSubscribe(query));
     }
 
     @NonNull

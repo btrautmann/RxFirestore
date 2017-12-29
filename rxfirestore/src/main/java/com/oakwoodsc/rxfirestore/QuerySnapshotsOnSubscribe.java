@@ -28,11 +28,11 @@ public class QuerySnapshotsOnSubscribe implements ObservableOnSubscribe<QuerySna
     public void subscribe(final ObservableEmitter<QuerySnapshot> emitter) throws Exception {
         final EventListener<QuerySnapshot> listener = new EventListener<QuerySnapshot>() {
             @Override
-            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+            public void onEvent(QuerySnapshot querySnapshot, FirebaseFirestoreException e) {
 
                 if (!emitter.isDisposed()) {
                     if (e == null) {
-                        emitter.onNext(documentSnapshots);
+                        emitter.onNext(querySnapshot);
                     } else {
                         emitter.onError(new Throwable(e.getMessage()));
                     }

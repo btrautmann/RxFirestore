@@ -64,13 +64,39 @@ Relevant Firestore documentation [here](https://firebase.google.com/docs/firesto
 ***
 
 ### Listen for Realtime Updates
-##### `RxFirestoreDb.queryChanges()`
-Listen for changes at the given `Query`. Takes the `Query` to listen to. Returns an `Observable<QuerySnapshot>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
+##### Note: For the following, read the warning regarding subscriptions at the end of the docs.
+##### Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/query-data/listen).
 
-It's important that you keep track of the subscription and call `dispose()` when it's no longer needed. From the Firestore [documentation](https://firebase.google.com/docs/firestore/query-data/listen): 
+##### `RxFirestoreDb.querySnapshots()`
 
-> When you are no longer interested in listening to your data, you must detach your listener so that your event callbacks stop getting called. This allows the client to stop using bandwidth to receive updates.
+Listen for snapshots at the given `Query`. Takes the `Query` to listen to. Returns an `Observable<QuerySnapshot>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
 
-Relevant class: [`QueryChangesOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/QueryChangesOnSubscribe.java)
+Relevant class: [`QuerySnapshotsOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/QuerySnapshotsOnSubscribe.java)
 
 Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/query-data/listen).
+
+***
+##### `RxFirestoreDb.documentSnapshots()`
+Listen for snapshots at the given `DocumentReference`. Takes the `DocumentReference` to listen to. Returns an `Observable<DocumentReference>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
+
+Relevant class: [`DocumentSnapshotsOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DocumentSnapshotsOnSubscribe.java)
+
+Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/query-data/listen).
+
+***
+##### `RxFirestoreDb.documentChanges()`
+
+A convenience method that grabs the `DocumentChange`s from a `QuerySnapshot` and emits them one by one, so you can act on each item as it comes down the stream. Takes the `Query` to listen to. Returns an `Observable<DocumentReference>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
+
+Example:
+`
+subscription = RxFirestoreDb.documentChanges(query)
+                    .filter(filter)
+                    .compose(RxUtils.applyObservableSchedulers())
+                    .subscribe(this::handleChange, this::handleErrorEvent);
+`
+
+Relevant class: [`DocumentChangesOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DocumentChangesOnSubscribe.java)
+
+
+*_It's important that you keep track of the subscription and call `dispose()` when it's no longer needed. From the Firestore [documentation](https://firebase.google.com/docs/firestore/query-data/listen): _

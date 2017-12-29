@@ -3,6 +3,7 @@
 [`RxFirestoreDb`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/RxFirestoreDb.java) is the main class for interacting with the RxJava implementation of Cloud Firestore. This class will contain the methods to help you create, delete, update and listen for changes from documents and collections.
 
 ### Add Data
+##### Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/add-data).
 ##### `RxFirestoreDb.set()`
 Create or overwrite a document at the given `DocumentReference`. Takes the `DocumentReference` and `T` value to be set. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
 
@@ -19,17 +20,21 @@ This is similar to `RxFirestoreDb.set()`, but allows Firestore to [auto-generate
 
 Relevant class: [`AddOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/AddOnSubscribe.java)
 
-Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/add-data).
+***
+
+##### `RxFirestoreDb.update()`
+Update a document at the given `DocumentReference`. Takes the `DocumentReference` and `HashMap<String, Object>` map to be added. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
+
+Relevant class: [`UpdateOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/UpdateOnSubscribe.java)
 
 ***
 
 ### Transactions and Batched Writes
+##### Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/transactions).
 ##### `RxFirestoreDb.runTransaction()`
 Run a transaction (a series of reads and writes) for the given database instance. Takes the `FirebaseFirestore` (database) to run `Transaction` on, and the `Transaction<TReturn>`. Returns a `Completable<TReturn>`. Subscribers should implement `onComplete()` and `onError()`.
 
 Relevant class: [`RunTransactionOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/RunTransactionOnSubscribe.java)
-
-Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/transactions).
 
 ***
 
@@ -38,17 +43,14 @@ Commit a `WriteBatch` (a series of writes only). Takes the `WriteBatch` to be co
 
 Relevant class: [`CommitBatchOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/CommitBatchOnSubscribe.java)
 
-Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/transactions).
-
 ***
 
 ### Delete Data
+##### Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/delete-data).
 ##### `RxFirestoreDb.delete()`
 Delete a document at the given `DocumentReference`. Takes the `DocumentReference` to delete. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
 
 Relevant class: [`DeleteOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DeleteOnSubscribe.java)
-
-Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/delete-data).
 
 ***
 
@@ -59,7 +61,15 @@ Delete an entire collection. Takes the `CollectionReference` for which to delete
 
 Relevant class: [`DeleteCollectionOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DeleteCollectionOnSubscribe.java)
 
-Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/delete-data).
+***
+
+### Get Data
+##### Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/query-data/get-data).
+Gets the `QuerySnapshot` for the given `CollectionReference`. Takes the `CollectionReference` to grab. Returns a `Single<QuerySnapshot>`. Subscribers should implement `onSuccess()` and `onError()`.
+
+**Notes**: A convenience method can be added later that allows for passing a `T` model which would allow for parsing the model and returning a simple `List<T>`.
+
+Relevant class: [`GetCollectionOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/GetCollectionOnSubscribe.java)
 
 ***
 

@@ -65,6 +65,8 @@ Relevant class: [`DeleteCollectionOnSubscribe`](https://github.com/btrautmann/Rx
 
 ### Get Data
 ##### Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/query-data/get-data).
+
+##### `RxFirestoreDb.getCollection()`
 Gets the `QuerySnapshot` for the given `CollectionReference`. Takes the `CollectionReference` to grab. Returns a `Single<QuerySnapshot>`. Subscribers should implement `onSuccess()` and `onError()`.
 
 **Notes**: A convenience method can be added later that allows for passing a `T` model which would allow for parsing the model and returning a simple `List<T>`.
@@ -78,7 +80,6 @@ Relevant class: [`GetCollectionOnSubscribe`](https://github.com/btrautmann/RxFir
 ##### Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/query-data/listen).
 
 ##### `RxFirestoreDb.querySnapshots()`
-
 Listen for snapshots at the given `Query`. Takes the `Query` to listen to. Returns an `Observable<QuerySnapshot>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
 
 Relevant class: [`QuerySnapshotsOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/QuerySnapshotsOnSubscribe.java)
@@ -86,6 +87,7 @@ Relevant class: [`QuerySnapshotsOnSubscribe`](https://github.com/btrautmann/RxFi
 Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/query-data/listen).
 
 ***
+
 ##### `RxFirestoreDb.documentSnapshots()`
 Listen for snapshots at the given `DocumentReference`. Takes the `DocumentReference` to listen to. Returns an `Observable<DocumentReference>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
 
@@ -94,8 +96,8 @@ Relevant class: [`DocumentSnapshotsOnSubscribe`](https://github.com/btrautmann/R
 Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/query-data/listen).
 
 ***
-##### `RxFirestoreDb.documentChanges()`
 
+##### `RxFirestoreDb.documentChanges()`
 A convenience method that grabs the `DocumentChange`s from a `QuerySnapshot` and emits them one by one, so you can act on each item as it comes down the stream. Takes the `Query` to listen to. Returns an `Observable<DocumentChange>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
 
 Example:

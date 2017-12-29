@@ -86,12 +86,12 @@ Relevant Firestore documentation [here](https://firebase.google.com/docs/firesto
 ***
 ##### `RxFirestoreDb.documentChanges()`
 
-A convenience method that grabs the `DocumentChange`s from a `QuerySnapshot` and emits them one by one, so you can act on each item as it comes down the stream. Takes the `Query` to listen to. Returns an `Observable<DocumentReference>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
+A convenience method that grabs the `DocumentChange`s from a `QuerySnapshot` and emits them one by one, so you can act on each item as it comes down the stream. Takes the `Query` to listen to. Returns an `Observable<DocumentChange>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
 
 Example:
 `
 subscription = RxFirestoreDb.documentChanges(query)
-                    .filter(filter)
+                    .filter(filter) <-- Only want certain Firestore models
                     .compose(RxUtils.applyObservableSchedulers())
                     .subscribe(this::handleChange, this::handleErrorEvent);
 `

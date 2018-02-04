@@ -15,29 +15,29 @@ import io.reactivex.CompletableOnSubscribe;
 
 public class CommitBatchOnSubscribe implements CompletableOnSubscribe {
 
-    private WriteBatch batch;
+  private WriteBatch batch;
 
-    public CommitBatchOnSubscribe(WriteBatch batch) {
-        this.batch = batch;
-    }
+  public CommitBatchOnSubscribe(WriteBatch batch) {
+    this.batch = batch;
+  }
 
-    @Override
-    public void subscribe(final CompletableEmitter emitter) throws Exception {
-        final OnCompleteListener<Void> listener = new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
+  @Override
+  public void subscribe(final CompletableEmitter emitter) throws Exception {
+    final OnCompleteListener<Void> listener = new OnCompleteListener<Void>() {
+      @Override
+      public void onComplete(@NonNull Task<Void> task) {
 
-                if (!emitter.isDisposed()) {
-                    if (!task.isSuccessful()) {
-                        emitter.onError(task.getException());
-                    } else {
-                        emitter.onComplete();
-                    }
-                }
+        if (!emitter.isDisposed()) {
+          if (!task.isSuccessful()) {
+            emitter.onError(task.getException());
+          } else {
+            emitter.onComplete();
+          }
+        }
 
-            }
-        };
+      }
+    };
 
-        batch.commit().addOnCompleteListener(listener);
-    }
+    batch.commit().addOnCompleteListener(listener);
+  }
 }

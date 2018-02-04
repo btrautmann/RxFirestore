@@ -17,38 +17,38 @@ import io.reactivex.functions.Action;
 
 public class DocumentSnapshotsOnSubscribe implements ObservableOnSubscribe<DocumentSnapshot> {
 
-    private final DocumentReference documentReference;
-    private ListenerRegistration registration;
+  private final DocumentReference documentReference;
+  private ListenerRegistration registration;
 
-    public DocumentSnapshotsOnSubscribe(DocumentReference documentReference) {
-        this.documentReference = documentReference;
-    }
+  public DocumentSnapshotsOnSubscribe(DocumentReference documentReference) {
+    this.documentReference = documentReference;
+  }
 
-    @Override
-    public void subscribe(final ObservableEmitter<DocumentSnapshot> emitter) throws Exception {
-        final EventListener<DocumentSnapshot> listener = new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-                if (!emitter.isDisposed()) {
-                    if (e == null) {
-                        emitter.onNext(documentSnapshot);
-                    } else {
-                        emitter.onError(e);
-                    }
-                }
-            }
+  @Override
+  public void subscribe(final ObservableEmitter<DocumentSnapshot> emitter) throws Exception {
+    final EventListener<DocumentSnapshot> listener = new EventListener<DocumentSnapshot>() {
+      @Override
+      public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+        if (!emitter.isDisposed()) {
+          if (e == null) {
+            emitter.onNext(documentSnapshot);
+          } else {
+            emitter.onError(e);
+          }
+        }
+      }
 
-        };
+    };
 
-        registration = documentReference.addSnapshotListener(listener);
+    registration = documentReference.addSnapshotListener(listener);
 
-        emitter.setDisposable(Disposables.fromAction(new Action() {
-            @Override
-            public void run() throws Exception {
-                registration.remove();
-            }
-        }));
-    }
+    emitter.setDisposable(Disposables.fromAction(new Action() {
+      @Override
+      public void run() throws Exception {
+        registration.remove();
+      }
+    }));
+  }
 
 
 }

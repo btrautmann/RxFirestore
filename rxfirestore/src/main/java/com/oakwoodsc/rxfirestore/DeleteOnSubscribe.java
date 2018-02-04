@@ -15,29 +15,29 @@ import io.reactivex.CompletableOnSubscribe;
 
 public class DeleteOnSubscribe implements CompletableOnSubscribe {
 
-    private final DocumentReference reference;
+  private final DocumentReference reference;
 
-    public DeleteOnSubscribe(DocumentReference reference) {
-        this.reference = reference;
-    }
+  public DeleteOnSubscribe(DocumentReference reference) {
+    this.reference = reference;
+  }
 
-    @Override
-    public void subscribe(final CompletableEmitter emitter) throws Exception {
-        final OnCompleteListener<Void> listener = new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
+  @Override
+  public void subscribe(final CompletableEmitter emitter) throws Exception {
+    final OnCompleteListener<Void> listener = new OnCompleteListener<Void>() {
+      @Override
+      public void onComplete(@NonNull Task<Void> task) {
 
-                if (!emitter.isDisposed()) {
-                    if (!task.isSuccessful()) {
-                        emitter.onError(task.getException());
-                    } else {
-                        emitter.onComplete();
-                    }
-                }
+        if (!emitter.isDisposed()) {
+          if (!task.isSuccessful()) {
+            emitter.onError(task.getException());
+          } else {
+            emitter.onComplete();
+          }
+        }
 
-            }
-        };
+      }
+    };
 
-        reference.delete().addOnCompleteListener(listener);
-    }
+    reference.delete().addOnCompleteListener(listener);
+  }
 }

@@ -18,40 +18,40 @@ import io.reactivex.functions.Action;
 
 public class DocumentChangesOnSubscribe implements ObservableOnSubscribe<DocumentChange> {
 
-    private final Query query;
-    private ListenerRegistration registration;
+  private final Query query;
+  private ListenerRegistration registration;
 
-    public DocumentChangesOnSubscribe(Query query) {
-        this.query = query;
-    }
+  public DocumentChangesOnSubscribe(Query query) {
+    this.query = query;
+  }
 
-    @Override
-    public void subscribe(final ObservableEmitter<DocumentChange> emitter) throws Exception {
-        final EventListener<QuerySnapshot> listener = new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(QuerySnapshot querySnapshot, FirebaseFirestoreException e) {
+  @Override
+  public void subscribe(final ObservableEmitter<DocumentChange> emitter) throws Exception {
+    final EventListener<QuerySnapshot> listener = new EventListener<QuerySnapshot>() {
+      @Override
+      public void onEvent(QuerySnapshot querySnapshot, FirebaseFirestoreException e) {
 
-                if (!emitter.isDisposed()) {
-                    if (e == null) {
-                        for (DocumentChange change : querySnapshot.getDocumentChanges()) {
-                            emitter.onNext(change);
-                        }
-
-                    } else {
-                        emitter.onError(e);
-                    }
-                }
-
+        if (!emitter.isDisposed()) {
+          if (e == null) {
+            for (DocumentChange change : querySnapshot.getDocumentChanges()) {
+              emitter.onNext(change);
             }
-        };
 
-        registration = query.addSnapshotListener(listener);
+          } else {
+            emitter.onError(e);
+          }
+        }
 
-        emitter.setDisposable(Disposables.fromAction(new Action() {
-            @Override
-            public void run() throws Exception {
-                registration.remove();
-            }
-        }));
-    }
+      }
+    };
+
+    registration = query.addSnapshotListener(listener);
+
+    emitter.setDisposable(Disposables.fromAction(new Action() {
+      @Override
+      public void run() throws Exception {
+        registration.remove();
+      }
+    }));
+  }
 }

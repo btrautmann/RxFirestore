@@ -16,31 +16,31 @@ import io.reactivex.SingleOnSubscribe;
 
 public class GetCollectionOnSubscribe implements SingleOnSubscribe<QuerySnapshot> {
 
-    private final CollectionReference collectionReference;
+  private final CollectionReference collectionReference;
 
-    public GetCollectionOnSubscribe(CollectionReference collectionReference) {
-        this.collectionReference = collectionReference;
-    }
+  public GetCollectionOnSubscribe(CollectionReference collectionReference) {
+    this.collectionReference = collectionReference;
+  }
 
-    @Override
-    public void subscribe(final SingleEmitter<QuerySnapshot> emitter) throws Exception {
-        OnCompleteListener<QuerySnapshot> listener = new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (!emitter.isDisposed()) {
-                    if (task.isSuccessful()) {
-                        emitter.onSuccess(task.getResult());
+  @Override
+  public void subscribe(final SingleEmitter<QuerySnapshot> emitter) throws Exception {
+    OnCompleteListener<QuerySnapshot> listener = new OnCompleteListener<QuerySnapshot>() {
+      @Override
+      public void onComplete(@NonNull Task<QuerySnapshot> task) {
+        if (!emitter.isDisposed()) {
+          if (task.isSuccessful()) {
+            emitter.onSuccess(task.getResult());
 
-                    } else {
-                        emitter.onError(task.getException());
+          } else {
+            emitter.onError(task.getException());
 
-                    }
-                }
+          }
+        }
 
-            }
-        };
+      }
+    };
 
-        collectionReference.get()
-                .addOnCompleteListener(listener);
-    }
+    collectionReference.get()
+        .addOnCompleteListener(listener);
+  }
 }

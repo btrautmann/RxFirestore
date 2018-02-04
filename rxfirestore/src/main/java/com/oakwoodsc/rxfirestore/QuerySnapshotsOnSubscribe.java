@@ -17,38 +17,37 @@ import io.reactivex.functions.Action;
 
 public class QuerySnapshotsOnSubscribe implements ObservableOnSubscribe<QuerySnapshot> {
 
-    private final Query query;
-    private ListenerRegistration registration;
+  private final Query query;
+  private ListenerRegistration registration;
 
-    public QuerySnapshotsOnSubscribe(Query query) {
-        this.query = query;
-    }
+  public QuerySnapshotsOnSubscribe(Query query) {
+    this.query = query;
+  }
 
-    @Override
-    public void subscribe(final ObservableEmitter<QuerySnapshot> emitter) throws Exception {
-        final EventListener<QuerySnapshot> listener = new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(QuerySnapshot querySnapshot, FirebaseFirestoreException e) {
+  @Override
+  public void subscribe(final ObservableEmitter<QuerySnapshot> emitter) throws Exception {
+    final EventListener<QuerySnapshot> listener = new EventListener<QuerySnapshot>() {
+      @Override
+      public void onEvent(QuerySnapshot querySnapshot, FirebaseFirestoreException e) {
+        if (!emitter.isDisposed()) {
+          if (e == null) {
+            emitter.onNext(querySnapshot);
+          } else {
+            emitter.onError(e);
+          }
+        }
 
-                if (!emitter.isDisposed()) {
-                    if (e == null) {
-                        emitter.onNext(querySnapshot);
-                    } else {
-                        emitter.onError(e);
-                    }
-                }
+      }
+    };
 
-            }
-        };
+    registration = query.addSnapshotListener(listener);
 
-        registration = query.addSnapshotListener(listener);
+    emitter.setDisposable(Disposables.fromAction(new Action() {
+      @Override
+      public void run() throws Exception {
+        registration.remove();
+      }
+    }));
 
-        emitter.setDisposable(Disposables.fromAction(new Action() {
-            @Override
-            public void run() throws Exception {
-                registration.remove();
-            }
-        }));
-
-    }
+  }
 }

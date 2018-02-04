@@ -17,32 +17,32 @@ import io.reactivex.CompletableOnSubscribe;
 
 public class UpdateOnSubscribe implements CompletableOnSubscribe {
 
-    private final DocumentReference reference;
-    private final HashMap<String, Object> updates;
+  private final DocumentReference reference;
+  private final HashMap<String, Object> updates;
 
-    public UpdateOnSubscribe(DocumentReference reference, HashMap<String, Object> updates) {
-        this.reference = reference;
-        this.updates = updates;
-    }
+  public UpdateOnSubscribe(DocumentReference reference, HashMap<String, Object> updates) {
+    this.reference = reference;
+    this.updates = updates;
+  }
 
-    @Override
-    public void subscribe(final CompletableEmitter emitter) throws Exception {
-        final OnCompleteListener<Void> listener = new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
+  @Override
+  public void subscribe(final CompletableEmitter emitter) throws Exception {
+    final OnCompleteListener<Void> listener = new OnCompleteListener<Void>() {
+      @Override
+      public void onComplete(@NonNull Task<Void> task) {
 
-                if (!emitter.isDisposed()) {
-                    if (!task.isSuccessful()) {
-                        emitter.onError(task.getException());
-                    } else {
-                        emitter.onComplete();
-                    }
-                }
+        if (!emitter.isDisposed()) {
+          if (!task.isSuccessful()) {
+            emitter.onError(task.getException());
+          } else {
+            emitter.onComplete();
+          }
+        }
 
-            }
-        };
+      }
+    };
 
-        reference.update(updates).addOnCompleteListener(listener);
+    reference.update(updates).addOnCompleteListener(listener);
 
-    }
+  }
 }

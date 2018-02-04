@@ -16,32 +16,32 @@ import io.reactivex.CompletableOnSubscribe;
 
 public class AddOnSubscribe<T> implements CompletableOnSubscribe {
 
-    private final CollectionReference reference;
-    private final T value;
+  private final CollectionReference reference;
+  private final T value;
 
-    public AddOnSubscribe(CollectionReference reference, T value) {
-        this.reference = reference;
-        this.value = value;
-    }
+  public AddOnSubscribe(CollectionReference reference, T value) {
+    this.reference = reference;
+    this.value = value;
+  }
 
-    @Override
-    public void subscribe(final CompletableEmitter emitter) throws Exception {
-        final OnCompleteListener<DocumentReference> listener =
-                new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
+  @Override
+  public void subscribe(final CompletableEmitter emitter) throws Exception {
+    final OnCompleteListener<DocumentReference> listener =
+        new OnCompleteListener<DocumentReference>() {
+          @Override
+          public void onComplete(@NonNull Task<DocumentReference> task) {
 
-                        if (!emitter.isDisposed()) {
-                            if (!task.isSuccessful()) {
-                                emitter.onError(task.getException());
-                            } else {
-                                emitter.onComplete();
-                            }
-                        }
+            if (!emitter.isDisposed()) {
+              if (!task.isSuccessful()) {
+                emitter.onError(task.getException());
+              } else {
+                emitter.onComplete();
+              }
+            }
 
-                    }
-                };
+          }
+        };
 
-        reference.add(value).addOnCompleteListener(listener);
-    }
+    reference.add(value).addOnCompleteListener(listener);
+  }
 }

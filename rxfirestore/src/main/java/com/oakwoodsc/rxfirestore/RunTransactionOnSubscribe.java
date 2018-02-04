@@ -16,32 +16,32 @@ import io.reactivex.CompletableOnSubscribe;
 
 public class RunTransactionOnSubscribe<T> implements CompletableOnSubscribe {
 
-    private Transaction.Function<T> transaction;
-    private FirebaseFirestore database;
+  private Transaction.Function<T> transaction;
+  private FirebaseFirestore database;
 
-    public RunTransactionOnSubscribe(FirebaseFirestore database, Transaction.Function<T> transaction) {
-        this.database = database;
-        this.transaction = transaction;
-    }
+  public RunTransactionOnSubscribe(FirebaseFirestore database, Transaction.Function<T> transaction) {
+    this.database = database;
+    this.transaction = transaction;
+  }
 
-    @Override
-    public void subscribe(final CompletableEmitter emitter) throws Exception {
+  @Override
+  public void subscribe(final CompletableEmitter emitter) throws Exception {
 
-        final OnCompleteListener<T> listener = new OnCompleteListener<T>() {
-            @Override
-            public void onComplete(@NonNull Task<T> task) {
+    final OnCompleteListener<T> listener = new OnCompleteListener<T>() {
+      @Override
+      public void onComplete(@NonNull Task<T> task) {
 
-                if (!emitter.isDisposed()) {
-                    if (!task.isSuccessful()) {
-                        emitter.onError(task.getException());
-                    } else {
-                        emitter.onComplete();
-                    }
-                }
+        if (!emitter.isDisposed()) {
+          if (!task.isSuccessful()) {
+            emitter.onError(task.getException());
+          } else {
+            emitter.onComplete();
+          }
+        }
 
-            }
-        };
+      }
+    };
 
-        database.runTransaction(transaction).addOnCompleteListener(listener);
-    }
+    database.runTransaction(transaction).addOnCompleteListener(listener);
+  }
 }

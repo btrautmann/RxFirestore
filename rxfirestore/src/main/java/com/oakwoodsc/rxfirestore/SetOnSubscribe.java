@@ -15,33 +15,33 @@ import io.reactivex.CompletableOnSubscribe;
 
 public class SetOnSubscribe<T> implements CompletableOnSubscribe {
 
-    private final DocumentReference reference;
+  private final DocumentReference reference;
 
-    private final T value;
+  private final T value;
 
-    public SetOnSubscribe(DocumentReference reference, T value) {
-        this.reference = reference;
-        this.value = value;
-    }
+  public SetOnSubscribe(DocumentReference reference, T value) {
+    this.reference = reference;
+    this.value = value;
+  }
 
-    @Override
-    public void subscribe(final CompletableEmitter emitter) throws Exception {
-        final OnCompleteListener<Void> listener = new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
+  @Override
+  public void subscribe(final CompletableEmitter emitter) throws Exception {
+    final OnCompleteListener<Void> listener = new OnCompleteListener<Void>() {
+      @Override
+      public void onComplete(@NonNull Task<Void> task) {
 
-                if (!emitter.isDisposed()) {
-                    if (!task.isSuccessful()) {
-                        emitter.onError(task.getException());
-                    } else {
-                        emitter.onComplete();
-                    }
-                }
+        if (!emitter.isDisposed()) {
+          if (!task.isSuccessful()) {
+            emitter.onError(task.getException());
+          } else {
+            emitter.onComplete();
+          }
+        }
 
-            }
-        };
+      }
+    };
 
-        reference.set(value).addOnCompleteListener(listener);
+    reference.set(value).addOnCompleteListener(listener);
 
-    }
+  }
 }

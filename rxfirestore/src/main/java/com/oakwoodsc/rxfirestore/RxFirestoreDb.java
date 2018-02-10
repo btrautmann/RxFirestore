@@ -14,7 +14,6 @@ import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.Executor;
 
 import io.reactivex.Completable;
@@ -49,6 +48,12 @@ public final class RxFirestoreDb {
   @CheckResult
   public static <T> Observable<QueryObjectsResponse<T>> queryObjects(@NonNull Query query, Class<T> objectClass) {
     return Observable.create(new QueryObjectsOnSubscribe<T>(query, objectClass));
+  }
+
+  @NonNull
+  @CheckResult
+  public static <T> Observable<QueryObjectResponse<T>> queryObject(@NonNull DocumentReference documentReference, Class<T> objectClass) {
+    return Observable.create(new QueryObjectOnSubscribe<T>(documentReference, objectClass));
   }
 
   @NonNull

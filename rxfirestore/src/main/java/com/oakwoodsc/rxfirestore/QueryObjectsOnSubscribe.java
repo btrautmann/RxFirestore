@@ -1,6 +1,6 @@
 package com.oakwoodsc.rxfirestore;
 
-import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -39,12 +39,14 @@ public class QueryObjectsOnSubscribe<T> implements ObservableOnSubscribe<QueryOb
           if (e == null) {
             List<T> objects = new ArrayList<>();
             List<String> documentIds = new ArrayList<>();
-            for (DocumentChange change : querySnapshot.getDocumentChanges()) {
-              T object = change.getDocument().toObject(objectClass);
-              String documentId = change.getDocument().getId();
+
+            for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+              T object = document.toObject(objectClass);
+              String documentId = document.getId();
               objects.add(object);
               documentIds.add(documentId);
             }
+
             emitter.onNext(new QueryObjectsResponse<T>(objects, documentIds));
           } else {
             emitter.onError(e);

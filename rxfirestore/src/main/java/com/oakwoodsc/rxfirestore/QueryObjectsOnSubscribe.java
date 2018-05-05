@@ -47,7 +47,7 @@ public class QueryObjectsOnSubscribe<T> implements ObservableOnSubscribe<QueryOb
               documentIds.add(documentId);
             }
 
-            emitter.onNext(new QueryObjectsResponse<T>(objects, documentIds));
+            emitter.onNext(new QueryObjectsResponse<>(objects, documentIds));
           } else {
             emitter.onError(e);
           }

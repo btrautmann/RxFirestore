@@ -3,9 +3,9 @@ RxFirestore is an RxJava2 wrapper for [Cloud Firestore](https://firebase.google.
 
 [ ![Download](https://api.bintray.com/packages/oakwoodsc/maven/RxFirestore/images/download.svg) ](https://bintray.com/oakwoodsc/maven/RxFirestore/_latestVersion)
 
-#### How to use it:
+### How to use it:
 
-Kotlin or Java:
+**Kotlin or Java:**
 
 - In your project's `build.gradle`, add the following in the `allProjects` `repositories` block:
 ```
@@ -15,13 +15,13 @@ maven {
 }
 ```
 
-Java:
+**Java:**
 - Add implementation statement in your app module's `build.gradle`:
 ```
 implementation 'com.oakwoodsc.rxfirestore:rxfirestore:${latestVersion}'
 ```
 
-Kotlin:
+**Kotlin:**
 - Add implementation statement in your app module's `build.gradle`:
 ```
 implementation 'com.oakwoodsc.rxfirestore:rxfirestorekt:${latestVersion}'

@@ -7,7 +7,7 @@ android {
     compileSdkVersion 27
     targetSdkVersion 27
     versionCode 1
-    versionName "1.0"
+    versionName "1.0.1"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
 
@@ -22,7 +22,7 @@ android {
 
 ext {
   firebaseVersion = '16.0.0'
-  libraryVersion = '1.0.0'
+  libraryVersion = '1.0.1'
 
   // For Bintray and Jcenter distribution
   bintrayRepo = 'maven'

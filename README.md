@@ -1,13 +1,27 @@
 # RxFirestore
-An RxJava2 wrapper for [Cloud Firestore](https://firebase.google.com/docs/firestore/), which is a new database solution by Firebase and is currently in beta.
+RxFirestore is an RxJava2 wrapper for [Cloud Firestore](https://firebase.google.com/docs/firestore/), which is a new database solution by Firebase and is currently in beta. It provides a more friendly API than that of RxFirestore itself for those familiar with RxJava.
 
-#### _Note: This library has not yet been published and does not support all Firestore functionality._
-
-#### What _does_ it support, then?
+#### What does RxFirestore support?
 Check out the [RxFirestore docs](https://github.com/btrautmann/RxFirestore/blob/master/RxFirestoreDocs.md).
 
+#### How to use it:
+- In your project's `build.gradle`, add the following in the `allProjects` `repositories` block:
+```
+maven {
+  // Required until published to Jcenter
+  url  "http://dl.bintray.com/btrautmann/maven"
+}
+```
+- Add implementation statement in your app module's `build.gradle`:
+```
+implementation 'com.oakwoodsc.rxfirestore:rxfirestore:1.0.0'
+```
+- You're all set!
+
+**Current Status:** In Development
+
 **Currently developed with:**
-- Firestore 11.4.2
+- Firestore 16.0.0
 - RxJava 2.1.5
 
 ___
@@ -23,4 +37,4 @@ I won't be working on this full-time, rather fast enough to support my own needs
 
 ### Thank You
 Thank you in advance to [kunny](https://github.com/kunny) for his [RxFirebase](https://github.com/kunny/RxFirebase)  database implementation, as I'll be mainly porting that to support Cloud Firestore.
-
+*

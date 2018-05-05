@@ -13,7 +13,7 @@ maven {
 ```
 - Add implementation statement in your app module's `build.gradle`:
 ```
-implementation 'com.oakwoodsc.rxfirestore:rxfirestore:1.0.0'
+implementation 'com.oakwoodsc.rxfirestore:rxfirestore:${latestVersion}'
 ```
 - You're all set!
 

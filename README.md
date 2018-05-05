@@ -1,7 +1,7 @@
 # RxFirestore
 RxFirestore is an RxJava2 wrapper for [Cloud Firestore](https://firebase.google.com/docs/firestore/), which is a new database solution by Firebase and is currently in beta. It provides a more friendly API than that of RxFirestore itself for those familiar with RxJava.
 
-[ ![Download](https://api.bintray.com/packages/btrautmann/maven/RxFirestore/images/download.svg) ](https://bintray.com/btrautmann/maven/RxFirestore/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/oakwoodsc/maven/RxFirestore/images/download.svg) ](https://bintray.com/oakwoodsc/maven/RxFirestore/_latestVersion)
 
 #### What does RxFirestore support?
 Check out the [RxFirestore docs](https://github.com/btrautmann/RxFirestore/blob/master/RxFirestoreDocs.md).

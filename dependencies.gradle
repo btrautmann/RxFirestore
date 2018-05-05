@@ -1,0 +1,17 @@
+ext {
+  // Libraries
+  supportLibraryVersion = '27.1.1'
+  firebaseVersion = '16.0.0'
+  junitVersion = '4.12'
+  kotlinVersion = '1.2.41'
+  rxJavaVersion = '2.1.8'
+
+  // Build plugins
+  androidPluginVersion = '3.1.2'
+  bintrayPluginVersion = '1.8.0'
+  mavenGradlePluginVersion = '2.1'
+
+  // Build SDK versions
+  minSdkVersion = 14
+  compileSdkVersion = 27
+}

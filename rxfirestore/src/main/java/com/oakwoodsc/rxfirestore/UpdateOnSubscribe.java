@@ -6,7 +6,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.CompletableEmitter;
 import io.reactivex.CompletableOnSubscribe;
@@ -18,9 +18,9 @@ import io.reactivex.CompletableOnSubscribe;
 public class UpdateOnSubscribe implements CompletableOnSubscribe {
 
   private final DocumentReference reference;
-  private final HashMap<String, Object> updates;
+  private final Map<String, Object> updates;
 
-  public UpdateOnSubscribe(DocumentReference reference, HashMap<String, Object> updates) {
+  public UpdateOnSubscribe(DocumentReference reference, Map<String, Object> updates) {
     this.reference = reference;
     this.updates = updates;
   }

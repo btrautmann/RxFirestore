@@ -14,6 +14,7 @@ import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 import io.reactivex.Completable;
@@ -135,7 +136,7 @@ public final class RxFirestoreDb {
    */
   @NonNull
   @CheckResult
-  public static Completable update(@NonNull DocumentReference reference, @NonNull HashMap<String, Object> updates) {
+  public static Completable update(@NonNull DocumentReference reference, @NonNull Map<String, Object> updates) {
     return Completable.create(new UpdateOnSubscribe(reference, updates));
   }
 

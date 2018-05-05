@@ -1,41 +1,64 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 26
 
+  defaultConfig {
+    minSdkVersion 19
+    compileSdkVersion 27
+    targetSdkVersion 27
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
 
-
-    defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+  }
 
 }
 
 ext {
-    firebaseVersion = '11.4.2'
+  firebaseVersion = '16.0.0'
+  libraryVersion = '1.0.0'
+
+  // For Bintray and Jcenter distribution
+  bintrayRepo = 'maven'
+  bintrayName = 'RxFirestore'
+  publishedGroupId = 'com.oakwoodsc.rxfirestore'
+  libraryName = 'RxFirestore'
+  //This artifact name should be the same with library module name
+  artifact = 'rxfirestore'
+  libraryDescription = 'An RxJava2 wrapper for Cloud Firestore'
+  siteUrl = 'https://github.com/btrautmann/RxFirestore'
+  gitUrl = 'https://github.com/btrautmann/RxFirestore.git'
+  // Developer
+  developerId = 'btrautmann'
+  developerName = 'Brandon Trautmann'
+  developerEmail = 'btraut@oakwoodsc.com'
+  organization = 'btrautmann' // Correlates to URL
+  // Licensing
+  licenseName = 'The Apache Software License, Version 2.0'
+  licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+  allLicenses = ["Apache-2.0"]
 }
 
+apply from: 'install.gradle'
+apply from: 'bintray.gradle'
+
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
-    implementation "com.google.firebase:firebase-firestore:$firebaseVersion"
-
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
+  implementation "com.google.firebase:firebase-firestore:$firebaseVersion"
+  implementation('com.android.support:appcompat-v7:27.1.1') {
+    exclude group: 'com.android.support', module: 'media-compat'
+  }
+  // Testing
+  testImplementation 'junit:junit:4.12'
+  androidTestImplementation('com.android.support.test:runner:1.0.2') {
+    exclude group: 'com.android.support', module: 'media-compat'
+  }
+  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

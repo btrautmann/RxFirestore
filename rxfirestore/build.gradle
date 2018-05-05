@@ -35,10 +35,10 @@ ext {
   siteUrl = 'https://github.com/btrautmann/RxFirestore'
   gitUrl = 'https://github.com/btrautmann/RxFirestore.git'
   // Developer
-  developerId = 'btrautmann'
-  developerName = 'Brandon Trautmann'
-  developerEmail = 'btraut@oakwoodsc.com'
-  organization = 'btrautmann' // Correlates to URL
+  developerId = 'oakwoodsc'
+  developerName = 'Oakwood Software Consulting, Inc.'
+  developerEmail = 'support@oakwoodsc.com'
+  organization = 'oakwoodsc' // Correlates to URL
   // Licensing
   licenseName = 'The Apache Software License, Version 2.0'
   licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'

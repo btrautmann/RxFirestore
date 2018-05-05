@@ -1,1 +1,1 @@
-include ':rxfirestore'
+include ':rxfirestore', ':rxfirestorekt'

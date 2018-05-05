@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
@@ -14,6 +15,7 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+
   lintOptions {
     disable 'InvalidPackage'
     abortOnError true
@@ -23,11 +25,11 @@ android {
 ext {
   libraryVersion = rootProject.ext.libraryVersion
   bintrayRepo = rootProject.ext.bintrayRepo
-  bintrayName = 'RxFirestore'
+  bintrayName = 'RxFirestoreKt'
   publishedGroupId = rootProject.ext.publishedGroupId
-  libraryName = 'RxFirestore'
+  libraryName = 'RxFirestoreKt'
   // This artifact name should be the same with library module name
-  artifact = 'rxfirestore'
+  artifact = 'rxfirestorekt'
   libraryDescription = rootProject.ext.libraryDescription
   siteUrl = rootProject.ext.siteUrl
   gitUrl = rootProject.ext.gitUrl
@@ -45,9 +47,14 @@ apply from: '../bintray.gradle'
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation project(':rxfirestore')
   implementation "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
   implementation "com.google.firebase:firebase-firestore:$firebaseVersion"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
   implementation "com.android.support:support-annotations:${supportLibraryVersion}"
   // Testing
   testImplementation 'junit:junit:4.12'
+}
+repositories {
+  mavenCentral()
 }

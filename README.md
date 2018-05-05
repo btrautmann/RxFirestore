@@ -11,7 +11,7 @@ Check out the [RxFirestore docs](https://github.com/btrautmann/RxFirestore/blob/
 ```
 maven {
   // Required until published to Jcenter
-  url  "http://dl.bintray.com/btrautmann/maven"
+  url  "http://dl.bintray.com/oakwoodsc/maven"
 }
 ```
 - Add implementation statement in your app module's `build.gradle`:

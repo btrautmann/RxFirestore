@@ -12,4 +12,4 @@ This library provides seamless realtime update methods which work flawlessly. Yo
 ### On the roadmap
 I have a few things I'd like to see in this library:
 - Tests: I haven't focused on these because I've been developing for my own needs and the API is fairly straight forward, but no library is complete without tests.
-- Kotlin support: Because Kotlin > Java
+- CI: When we merge to master, publish to bintray and anywhere else we want to expose the library

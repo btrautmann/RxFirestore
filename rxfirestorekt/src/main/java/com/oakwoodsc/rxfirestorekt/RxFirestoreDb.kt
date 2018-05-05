@@ -27,7 +27,7 @@ fun <T> DocumentReference.queryObject(objectClass: Class<T>): Observable<QueryOb
 fun <T> DocumentReference.set(value: T): Completable =
   RxFirestoreDb.set(this, value)
 
-fun DocumentReference.updateDoc(updates: HashMap<String, Any>): Completable =
+fun DocumentReference.updateDoc(updates: Map<String, Any>): Completable =
   RxFirestoreDb.update(this, updates)
 
 fun DocumentReference.deleteDoc(): Completable =

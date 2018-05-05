@@ -1,118 +1,15 @@
 # RxFirestore Documentation
 
-[`RxFirestoreDb`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/RxFirestoreDb.java) is the main class for interacting with the RxJava implementation of Cloud Firestore. This class will contain the methods to help you create, delete, update and listen for changes from documents and collections.
+### Usage
+See the java docs within the [RxFirestoreDb](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/RxFirestoreDb.java) class, which outline the methods exposed to interact with your FirebaseFirestore database.
 
-### Add Data
-##### Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/add-data).
-##### `RxFirestoreDb.set()`
-Create or overwrite a document at the given `DocumentReference`. Takes the `DocumentReference` and `T` value to be set. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
+### Assumptions
+This library assumes that you have set your Android project up to use `FirebaseFirestore` already. This means you have included the appropriate dependencies and imported your Google Services JSON, and you are passing in authenticated references to the `RxFirestoreDb` methods.
 
-Relevant class: [`SetOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/SetOnSubscribe.java)
+### Important Note
+This library provides seamless realtime update methods which work flawlessly. You should, however, take note of the fact that the methods which complete immediately (such as `set()`, `update()`, `runTransaction()`, etc.) are **blocking** in some cases. The `FirebaseFirestore` SDK does NOT signal completion callbacks in the case that the device is offline, because it only considers a database interaction complete if the result is persisted to the backend. In order to get around this, you should make sure that your subscriptions do not block the UI.
 
-Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/add-data).
-
-***
-
-##### `RxFirestoreDb.add()`
-Add a document at the given `CollectionReference`. Takes the `DocumentReference` and `T` value to be added. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
-
-This is similar to `RxFirestoreDb.set()`, but allows Firestore to [auto-generate an ID]() for this document.
-
-Relevant class: [`AddOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/AddOnSubscribe.java)
-
-***
-
-##### `RxFirestoreDb.update()`
-Update a document at the given `DocumentReference`. Takes the `DocumentReference` and `HashMap<String, Object>` map to be added. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
-
-Relevant class: [`UpdateOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/UpdateOnSubscribe.java)
-
-***
-
-### Transactions and Batched Writes
-##### Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/transactions).
-##### `RxFirestoreDb.runTransaction()`
-Run a transaction (a series of reads and writes) for the given database instance. Takes the `FirebaseFirestore` (database) to run `Transaction` on, and the `Transaction<TReturn>`. Returns a `Completable<TReturn>`. Subscribers should implement `onComplete()` and `onError()`.
-
-Relevant class: [`RunTransactionOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/RunTransactionOnSubscribe.java)
-
-***
-
-##### `RxFirestoreDb.commitBatch()`
-Commit a `WriteBatch` (a series of writes only). Takes the `WriteBatch` to be committed. Returns a `Completable` Subscribers should implement`onComplete()` and `onError()`.
-
-Relevant class: [`CommitBatchOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/CommitBatchOnSubscribe.java)
-
-***
-
-### Delete Data
-##### Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/manage-data/delete-data).
-##### `RxFirestoreDb.delete()`
-Delete a document at the given `DocumentReference`. Takes the `DocumentReference` to delete. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
-
-Relevant class: [`DeleteOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DeleteOnSubscribe.java)
-
-***
-
-##### `RxFirestoreDb.deleteCollection()`
-Delete an entire collection. Takes the `CollectionReference` for which to delete all documents, the batch size to delete in (i.e. how many documents are deleted at once, done repeatedly until entire collection is deleted), and an `Executor` to use when running the `Task`. Returns a `Completable`. Subscribers should implement `onComplete()` and `onError()`.
-
-**Notes**: I'm currently researching ways to get rid of the last argument and do the backgrounding fully with RxJava. The current implementation of `DeleteCollectionOnSubscribe` is exactly how Firebase recommends doing it in the documentation.
-
-Relevant class: [`DeleteCollectionOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DeleteCollectionOnSubscribe.java)
-
-***
-
-### Get Data
-##### Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/query-data/get-data).
-
-##### `RxFirestoreDb.getCollection()`
-Gets the `QuerySnapshot` for the given `CollectionReference`. Takes the `CollectionReference` to grab. Returns a `Single<QuerySnapshot>`. Subscribers should implement `onSuccess()` and `onError()`.
-
-**Notes**: A convenience method can be added later that allows for passing a `T` model which would allow for parsing the model and returning a simple `List<T>`.
-
-Relevant class: [`GetCollectionOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/GetCollectionOnSubscribe.java)
-
-***
-
-### Listen for Realtime Updates
-##### Note: For the following, read the warning regarding subscriptions at the end of the docs.
-##### Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/query-data/listen).
-
-##### `RxFirestoreDb.querySnapshots()`
-Listen for snapshots at the given `Query`. Takes the `Query` to listen to. Returns an `Observable<QuerySnapshot>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
-
-Relevant class: [`QuerySnapshotsOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/QuerySnapshotsOnSubscribe.java)
-
-Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/query-data/listen).
-
-***
-
-##### `RxFirestoreDb.documentSnapshots()`
-Listen for snapshots at the given `DocumentReference`. Takes the `DocumentReference` to listen to. Returns an `Observable<DocumentReference>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
-
-Relevant class: [`DocumentSnapshotsOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DocumentSnapshotsOnSubscribe.java)
-
-Relevant Firestore documentation [here](https://firebase.google.com/docs/firestore/query-data/listen).
-
-***
-
-##### `RxFirestoreDb.documentChanges()`
-A convenience method that grabs the `DocumentChange`s from a `QuerySnapshot` and emits them one by one, so you can act on each item as it comes down the stream. Takes the `Query` to listen to. Returns an `Observable<DocumentChange>`. Subscribers should implement `onNext()`, `onComplete()` and `onError()`.
-
-Example:
-```
-RxFirestoreDb.documentChanges(query)
-    .filter(filter) // Only want certain Firestore models
-    .map(...) // Do something to each model
-    .compose(RxUtils.applyObservableSchedulers())
-    .subscribe(this::handleChange, this::handleErrorEvent);
-```
-
-Relevant class: [`DocumentChangesOnSubscribe`](https://github.com/btrautmann/RxFirestore/blob/master/rxfirestore/src/main/java/com/oakwoodsc/rxfirestore/DocumentChangesOnSubscribe.java)
-
-***
-
-#### Note on Realtime Updates: _It's important that you keep track of realtime update subscriptions and call `dispose()` when they're no longer needed. From the Firestore [documentation](https://firebase.google.com/docs/firestore/query-data/listen):_
-
-> When you are no longer interested in listening to your data, you must detach your listener so that your event callbacks stop getting called. This allows the client to stop using bandwidth to receive updates.
+### On the roadmap
+I have a few things I'd like to see in this library:
+- Tests: I haven't focused on these because I've been developing for my own needs and the API is fairly straight forward, but no library is complete without tests.
+- Kotlin support: Because Kotlin > Java

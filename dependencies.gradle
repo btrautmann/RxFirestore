@@ -8,8 +8,8 @@ ext {
 
   // Build plugins
   androidPluginVersion = '3.1.2'
-  bintrayPluginVersion = '1.4'
-  mavenGradlePluginVersion = '1.4.1'
+  bintrayPluginVersion = '1.8.0'
+  mavenGradlePluginVersion = '2.1'
 
   // Build SDK versions
   minSdkVersion = 14

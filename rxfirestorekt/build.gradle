@@ -24,6 +24,7 @@ android {
 
 ext {
   libraryVersion = rootProject.ext.libraryVersion
+  libraryVersionName = rootProject.ext.libraryVersionName
   bintrayRepo = rootProject.ext.bintrayRepo
   bintrayName = 'RxFirestoreKt'
   publishedGroupId = rootProject.ext.publishedGroupId

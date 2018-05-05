@@ -36,4 +36,3 @@ I won't be working on this full-time, rather fast enough to support my own needs
 
 ### Thank You
 Thank you in advance to [kunny](https://github.com/kunny) for his [RxFirebase](https://github.com/kunny/RxFirebase)  database implementation, as I'll be mainly porting that to support Cloud Firestore.
-*

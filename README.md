@@ -3,16 +3,7 @@
 RxFirestore is an RxJava2 wrapper for [Cloud Firestore](https://firebase.google.com/docs/firestore/), which is a new database solution by Firebase and is currently in beta. It provides a more friendly API than that of Firestore itself for those familiar with RxJava. Check out the [RxFirestore docs](https://github.com/btrautmann/RxFirestore/blob/master/RxFirestoreDocs.md) for more information on the API.
 
 ### How to use it:
-
-**Kotlin or Java:**
-
-- In your project's `build.gradle`, add the following in the `allProjects` `repositories` block:
-```
-maven {
-  // Required until published to Jcenter
-  url  "http://dl.bintray.com/oakwoodsc/maven"
-}
-```
+RxFirestore is currently on Jcenter, so you can simple add the `implementation` statements (if on Android Gradle Plugin 3.0+, use `compile` otherwise) 
 
 **Java:**
 - Add implementation statement in your app module's `build.gradle`:
@@ -23,6 +14,7 @@ implementation 'com.oakwoodsc.rxfirestore:rxfirestore:${latestVersion}'
 **Kotlin:**
 - Add implementation statement in your app module's `build.gradle`:
 ```
+implementation 'com.oakwoodsc.rxfirestore:rxfirestore:${latestVersion}'
 implementation 'com.oakwoodsc.rxfirestore:rxfirestorekt:${latestVersion}'
 ```
 

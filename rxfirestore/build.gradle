@@ -33,6 +33,7 @@ ext {
   libraryName = 'RxFirestore'
   // This artifact name should be the same with library module name
   artifact = 'rxfirestore'
+  aarName = 'rxfirestore-release.aar'
   libraryDescription = rootProject.ext.libraryDescription
   siteUrl = rootProject.ext.siteUrl
   gitUrl = rootProject.ext.gitUrl

@@ -2,9 +2,13 @@ ext {
   // Libraries
   supportLibraryVersion = '27.1.1'
   firebaseVersion = '16.0.0'
-  junitVersion = '4.12'
   kotlinVersion = '1.2.41'
   rxJavaVersion = '2.1.8'
+
+  // Test libraries
+  mockitoVersion = '2.18.3'
+  kotlinMockitoVersion = '1.5.0'
+  junitVersion = '4.12'
 
   // Build plugins
   androidPluginVersion = '3.1.2'

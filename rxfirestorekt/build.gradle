@@ -31,6 +31,7 @@ ext {
   libraryName = 'RxFirestoreKt'
   // This artifact name should be the same with library module name
   artifact = 'rxfirestorekt'
+  aarName = 'rxfirestorekt-release.aar'
   libraryDescription = rootProject.ext.libraryDescription
   siteUrl = rootProject.ext.siteUrl
   gitUrl = rootProject.ext.gitUrl
@@ -49,12 +50,12 @@ apply from: '../bintray.gradle'
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation project(':rxfirestore')
-  implementation "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
+  implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
   implementation "com.google.firebase:firebase-firestore:$firebaseVersion"
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-  implementation "com.android.support:support-annotations:${supportLibraryVersion}"
+  implementation "com.android.support:support-annotations:$supportLibraryVersion"
   // Testing
-  testImplementation 'junit:junit:4.12'
+  testImplementation "junit:junit:$junitVersion"
 }
 repositories {
   mavenCentral()

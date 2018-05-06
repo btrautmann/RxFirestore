@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
@@ -18,6 +19,9 @@ android {
     disable 'InvalidPackage'
     abortOnError true
   }
+  sourceSets {
+    test.java.srcDirs += 'src/test/kotlin'
+  }
 }
 
 ext {
@@ -29,6 +33,7 @@ ext {
   libraryName = 'RxFirestore'
   // This artifact name should be the same with library module name
   artifact = 'rxfirestore'
+  aarName = 'rxfirestore-release.aar'
   libraryDescription = rootProject.ext.libraryDescription
   siteUrl = rootProject.ext.siteUrl
   gitUrl = rootProject.ext.gitUrl
@@ -46,9 +51,15 @@ apply from: '../bintray.gradle'
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
+  implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
   implementation "com.google.firebase:firebase-firestore:$firebaseVersion"
-  implementation "com.android.support:support-annotations:${supportLibraryVersion}"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+  implementation "com.android.support:support-annotations:$supportLibraryVersion"
   // Testing
-  testImplementation 'junit:junit:4.12'
+  testImplementation "junit:junit:$junitVersion"
+  testImplementation "com.nhaarman:mockito-kotlin:$kotlinMockitoVersion"
+  testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+}
+repositories {
+  mavenCentral()
 }

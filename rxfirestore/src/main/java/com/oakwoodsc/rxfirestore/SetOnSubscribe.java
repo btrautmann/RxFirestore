@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.SetOptions;
 
 import io.reactivex.CompletableEmitter;
 import io.reactivex.CompletableOnSubscribe;
@@ -19,9 +20,12 @@ public class SetOnSubscribe<T> implements CompletableOnSubscribe {
 
   private final T value;
 
-  public SetOnSubscribe(DocumentReference reference, T value) {
+  private final boolean merge;
+
+  public SetOnSubscribe(DocumentReference reference, T value, boolean merge) {
     this.reference = reference;
     this.value = value;
+    this.merge = merge;
   }
 
   @Override
@@ -41,7 +45,12 @@ public class SetOnSubscribe<T> implements CompletableOnSubscribe {
       }
     };
 
-    reference.set(value).addOnCompleteListener(listener);
+    if (merge) {
+      reference.set(value, SetOptions.merge()).addOnCompleteListener(listener);
+    } else {
+      reference.set(value).addOnCompleteListener(listener);
+    }
+
 
   }
 }

@@ -120,7 +120,25 @@ public final class RxFirestoreDb {
   @NonNull
   @CheckResult
   public static <T> Completable set(@NonNull DocumentReference reference, @NonNull T value) {
-    return Completable.create(new SetOnSubscribe<>(reference, value));
+    return Completable.create(new SetOnSubscribe<>(reference, value, false));
+  }
+
+  /**
+   * Creates or merges a document at the given {@link DocumentReference}
+   * <p>
+   * Note, this is a <b>blocking</b> call because of how Firestore handles offline persistence.
+   * That means the onComplete() callback will not be called if the user is offline, so it is recommended
+   * not to block the UI until this completes
+   *
+   * @param reference the {@link DocumentReference} to create or set the document at
+   * @param value     the object to place at the {@link DocumentReference}
+   * @param <T>       the type of the model
+   * @return {@link Completable}
+   */
+  @NonNull
+  @CheckResult
+  public static <T> Completable setAndMerge(@NonNull DocumentReference reference, @NonNull T value) {
+    return Completable.create(new SetOnSubscribe<>(reference, value, true));
   }
 
   /**

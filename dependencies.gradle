@@ -2,7 +2,7 @@ ext {
   // Libraries
   supportLibraryVersion = '27.1.1'
   firebaseVersion = '17.1.2'
-  kotlinVersion = '1.2.41'
+  kotlinVersion = '1.2.71'
   rxJavaVersion = '2.2.3'
 
   // Test libraries
@@ -11,8 +11,8 @@ ext {
   junitVersion = '4.12'
 
   // Build plugins
-  androidPluginVersion = '3.1.2'
-  bintrayPluginVersion = '1.8.0'
+  androidPluginVersion = '3.2.0'
+  bintrayPluginVersion = '1.8.4'
   mavenGradlePluginVersion = '2.1'
 
   // Build SDK versions

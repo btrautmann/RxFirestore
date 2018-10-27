@@ -1,7 +1,7 @@
 ext {
   // Publishing
-  libraryVersion = '1.1.0'
-  libraryVersionName = '1.1.0'
+  libraryVersion = '1.1.1'
+  libraryVersionName = '1.1.1'
   bintrayRepo = 'maven'
   publishedGroupId = 'com.oakwoodsc.rxfirestore'
   libraryDescription = 'An RxJava2 wrapper for Cloud Firestore'

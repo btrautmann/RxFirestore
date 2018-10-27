@@ -21,8 +21,8 @@ implementation 'com.oakwoodsc.rxfirestore:rxfirestorekt:${latestVersion}'
 **Current Status:** In Development
 
 **Currently developed with:**
-- Firestore 16.0.0
-- RxJava 2.1.8
+- Firestore 17.1.2
+- RxJava 2.2.3
 
 ___
 

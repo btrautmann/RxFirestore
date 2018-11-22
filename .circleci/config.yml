@@ -8,7 +8,6 @@ jobs:
       JVM_OPTS: -Xmx3200m
     steps:
       - checkout
-          post: cp local.properties.ci local.properties
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "rxfirestore/build.gradle" }}
 #      - run:
@@ -17,6 +16,9 @@ jobs:
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
+      - run:
+          name: Copy CI properties to local.properties
+          command: cp local.properties.ci local.properties
       - save_cache:
           paths:
             - ~/.gradle

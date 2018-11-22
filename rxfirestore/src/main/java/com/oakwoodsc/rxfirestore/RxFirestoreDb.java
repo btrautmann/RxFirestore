@@ -2,24 +2,13 @@ package com.oakwoodsc.rxfirestore;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
-
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Transaction;
-import com.google.firebase.firestore.WriteBatch;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.Executor;
-
+import com.google.firebase.firestore.*;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+
+import java.util.Map;
+import java.util.concurrent.Executor;
 
 /**
  * The main class used to interact with Cloud Firestore
@@ -76,8 +65,7 @@ public final class RxFirestoreDb {
    * {@link DocumentSnapshot}s in a {@link QueryObjectsResponse<T>}, which contains a
    * {@link java.util.List}
    * of T objects, and {@link java.util.List} of {@link String}s that are the IDs of the
-   * {@link DocumentReference}. This allows RxFirestore to have no knowledge of how you've
-   * defined your object
+   * {@link DocumentReference}s. This allows RxFirestore to have no knowledge of how you've defined your object
    * <p>
    * This method will likely be deprecated in the future because {@link QueryObjectsResponse<T>}
    * should
@@ -169,7 +157,7 @@ public final class RxFirestoreDb {
    * not to block the UI until this completes
    *
    * @param reference the {@link DocumentReference} containing the document to update
-   * @param updates   a {@link HashMap} of updates to apply to the document
+   * @param updates   a {@link Map} of updates to apply to the document
    * @return {@link Completable}
    */
   @NonNull
@@ -197,14 +185,14 @@ public final class RxFirestoreDb {
   }
 
   /**
-   * Adds a document at the given {@link DocumentReference}
+   * Adds a document at the given {@link CollectionReference}
    * <p>
    * Note, this is a <b>blocking</b> call because of how Firestore handles offline persistence.
    * That means the onComplete() callback will not be called if the user is offline, so it is
    * recommended
    * not to block the UI until this completes
    *
-   * @param reference the {@link DocumentReference} at which to add the document
+   * @param reference the {@link CollectionReference} at which to add the document
    * @return {@link Completable}
    */
   @NonNull
@@ -237,7 +225,7 @@ public final class RxFirestoreDb {
   }
 
   /**
-   * Comments a {@link WriteBatch} (series of writes <b>only</b>)
+   * Commits a {@link WriteBatch} (series of writes <b>only</b>)
    * <p>
    * Note, this is a <b>blocking</b> call because of how Firestore handles offline persistence.
    * That means the onComplete() callback will not be called if the user is offline, so it is
@@ -271,9 +259,8 @@ public final class RxFirestoreDb {
    * @param collectionReference the {@link CollectionReference} pointing to the collection to be
    *                            deleted
    * @param batchSize           the size of batches to delete in
-   * @param executor            the {@link Executor} to use when running delete
-   * {@link com.google.android.gms.tasks.Task}s
-   * @return
+   * @param executor            the {@link Executor} to use when running delete {@link com.google.android.gms.tasks.Task}s
+   * @return {@link Completable}
    */
   @NonNull
   @CheckResult

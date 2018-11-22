@@ -24,8 +24,8 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "rxfirestore/build.gradle" }}
       - run:
-          name: Run Tests
-          command: ./gradlew lint test
+          name: Verify code
+          command: ./gradlew check
       - store_artifacts:
           path: rxfirestore/build/reports
           destination: reports

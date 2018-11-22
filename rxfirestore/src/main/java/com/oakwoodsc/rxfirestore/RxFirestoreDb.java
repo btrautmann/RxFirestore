@@ -2,13 +2,23 @@ package com.oakwoodsc.rxfirestore;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
-import com.google.firebase.firestore.*;
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.Single;
+
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.util.Map;
 import java.util.concurrent.Executor;
+
+import io.reactivex.Completable;
+import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * The main class used to interact with Cloud Firestore

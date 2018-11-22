@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: file('../checkstyle.gradle')
+apply from: file('../checkstyle.gradle') // Ideally this applied from project build.gradle
 
 android {
   compileSdkVersion versions.compileSdkVersion

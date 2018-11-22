@@ -9,24 +9,12 @@
  Description: none
  -->
 <module name="Checker">
-    <property name="severity" value="warning"></property>
+    <property name="severity" value="error"></property>
     <module name="TreeWalker">
         <property name="tabWidth" value="4"></property>
-        <module name="JavadocMethod">
-            <property name="logLoadErrors" value="true"></property>
-            <property name="suppressLoadErrors" value="true"></property>
-        </module>
-        <module name="JavadocType"></module>
-        <module name="JavadocVariable"></module>
-        <module name="JavadocStyle"></module>
         <module name="ConstantName"></module>
         <module name="LocalFinalVariableName"></module>
         <module name="LocalVariableName"></module>
-        <module name="MemberName">
-            <metadata name="net.sf.eclipsecs.core.comment" value="only public starts without m"></metadata>
-            <property name="applyToProtected" value="false"></property>
-            <property name="applyToPrivate" value="false"></property>
-        </module>
         <module name="MethodName"></module>
         <module name="PackageName"></module>
         <module name="ParameterName"></module>
@@ -66,7 +54,6 @@
         <module name="AvoidInlineConditionals"></module>
         <module name="EmptyStatement"></module>
         <module name="EqualsHashCode"></module>
-        <module name="HiddenField"></module>
         <module name="IllegalInstantiation"></module>
         <module name="InnerAssignment"></module>
         <module name="MagicNumber"></module>
@@ -91,19 +78,10 @@
             <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"></metadata>
         </module>
         <module name="UpperEll"></module>
-        <module name="MethodLength">
-            <property name="max" value="40"></property>
-        </module>
-        <module name="MemberName">
-            <metadata name="net.sf.eclipsecs.core.comment" value="non public members should start with m"></metadata>
-            <property name="applyToPublic" value="false"></property>
-            <property name="format" value="^[m][a-zA-Z0-9]*$"></property>
-        </module>
         <module name="LineLength">
-            <property name="max" value="100"></property>
+            <property name="max" value="140"></property>
         </module>
     </module>
-    <module name="JavadocPackage"></module>
     <module name="NewlineAtEndOfFile">
         <property name="severity" value="ignore"></property>
         <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"></metadata>

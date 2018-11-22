@@ -1,21 +1,36 @@
-ext {
+ext.versions = [
   // Libraries
-  supportLibraryVersion = '27.1.1'
-  firebaseVersion = '17.1.2'
-  kotlinVersion = '1.2.71'
-  rxJavaVersion = '2.2.3'
+  supportLibraryVersion   : '27.1.1',
+  firebaseVersion         : '17.1.2',
+  kotlinVersion           : '1.2.71',
+  rxJavaVersion           : '2.2.3',
 
   // Test libraries
-  mockitoVersion = '2.18.3'
-  kotlinMockitoVersion = '1.5.0'
-  junitVersion = '4.12'
+  mockitoVersion          : '2.18.3',
+  kotlinMockitoVersion    : '1.5.0',
+  junitVersion            : '4.12',
 
   // Build plugins
-  androidPluginVersion = '3.2.0'
-  bintrayPluginVersion = '1.8.4'
-  mavenGradlePluginVersion = '2.1'
-
+  androidPluginVersion    : '3.2.0',
+  bintrayPluginVersion    : '1.8.4',
+  mavenGradlePluginVersion: '2.1',
   // Build SDK versions
-  minSdkVersion = 14
-  compileSdkVersion = 27
-}
+  minSdkVersion           : 14,
+  compileSdkVersion       : 27,
+]
+
+ext.libs = [
+  rxJava            : "io.reactivex.rxjava2:rxjava:${versions.rxJavaVersion}",
+  firestore         : "com.google.firebase:firebase-firestore:${versions.firebaseVersion}",
+  kotlin            : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlinVersion}",
+  supportAnnotations: "com.android.support:support-annotations:${versions.supportLibraryVersion}",
+  // Testing
+  junit             : "junit:junit:${versions.junitVersion}",
+  kotlinMockito     : "com.nhaarman:mockito-kotlin:${versions.kotlinMockitoVersion}",
+  mockitoCore       : "org.mockito:mockito-core:${versions.mockitoVersion}",
+
+  androidPlugin     : "com.android.tools.build:gradle:${versions.androidPluginVersion}",
+  bintrayPlugin     : "com.jfrog.bintray.gradle:gradle-bintray-plugin:${versions.bintrayPluginVersion}",
+  mavenPlugin       : "com.github.dcendents:android-maven-gradle-plugin:${versions.mavenGradlePluginVersion}",
+  kotlinPlugin      : "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlinVersion}"
+]

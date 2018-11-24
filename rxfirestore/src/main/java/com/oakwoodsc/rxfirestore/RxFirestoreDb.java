@@ -2,7 +2,15 @@ package com.oakwoodsc.rxfirestore;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
-import com.google.firebase.firestore.*;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
+import com.google.firebase.firestore.WriteBatch;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -215,7 +223,7 @@ public final class RxFirestoreDb {
   @NonNull
   @CheckResult
   public static <T> Single<DocumentReference> addAsSingle(@NonNull CollectionReference reference, T value) {
-    return Single.create(new AddOnSubscribeSingle<>(reference, value));
+    return Single.create(new AddOnSubscribe<>(reference, value));
   }
 
   /**

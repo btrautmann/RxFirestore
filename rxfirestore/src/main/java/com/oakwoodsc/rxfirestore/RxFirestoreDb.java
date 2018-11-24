@@ -222,7 +222,7 @@ public final class RxFirestoreDb {
    */
   @NonNull
   @CheckResult
-  public static <T> Single<DocumentReference> addAsSingle(@NonNull CollectionReference reference, T value) {
+  public static <T> Single<DocumentReference> addAndProvideDocId(@NonNull CollectionReference reference, T value) {
     return Single.create(new AddOnSubscribe<>(reference, value));
   }
 

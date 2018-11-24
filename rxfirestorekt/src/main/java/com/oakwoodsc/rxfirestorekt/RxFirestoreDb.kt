@@ -39,8 +39,8 @@ fun DocumentReference.deleteDoc(): Completable =
 fun <T> CollectionReference.addDoc(value: T): Completable =
   RxFirestoreDb.add(this, value)
 
-fun <T> CollectionReference.addDocAsSingle(value: T): Single<DocumentReference> =
-  RxFirestoreDb.addAsSingle(this, value)
+fun <T> CollectionReference.addDocAndProvideId(value: T): Single<DocumentReference> =
+  RxFirestoreDb.addAndProvideDocId(this, value)
 
 fun <T> FirebaseFirestore.run(transaction: Transaction.Function<T>)
   : Completable = RxFirestoreDb.runTransaction(this, transaction)

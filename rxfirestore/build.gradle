@@ -1,11 +1,12 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply from: file('../checkstyle.gradle') // Ideally this applied from project build.gradle
 
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
+  compileSdkVersion versions.compileSdkVersion
 
   defaultConfig {
-    minSdkVersion rootProject.ext.minSdkVersion
+    minSdkVersion versions.minSdkVersion
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
 
@@ -25,25 +26,25 @@ android {
 }
 
 ext {
-  libraryVersion = rootProject.ext.libraryVersion
-  libraryVersionName = rootProject.ext.libraryVersionName
-  bintrayRepo = rootProject.ext.bintrayRepo
+  libraryVersion = artifactInfo.libraryVersion
+  libraryVersionName = artifactInfo.libraryVersionName
+  bintrayRepo = artifactInfo.bintrayRepo
   bintrayName = 'RxFirestore'
-  publishedGroupId = rootProject.ext.publishedGroupId
+  publishedGroupId = artifactInfo.publishedGroupId
   libraryName = 'RxFirestore'
   // This artifact name should be the same with library module name
   artifact = 'rxfirestore'
   aarName = 'rxfirestore-release.aar'
-  libraryDescription = rootProject.ext.libraryDescription
-  siteUrl = rootProject.ext.siteUrl
-  gitUrl = rootProject.ext.gitUrl
-  developerId = rootProject.ext.developerId
-  developerName = rootProject.ext.developerName
-  developerEmail = rootProject.ext.developerEmail
-  organization = rootProject.ext.organization
-  licenseName = rootProject.ext.licenseName
-  licenseUrl = rootProject.ext.licenseUrl
-  allLicenses = rootProject.ext.allLicenses
+  libraryDescription = artifactInfo.libraryDescription
+  siteUrl = artifactInfo.siteUrl
+  gitUrl = artifactInfo.gitUrl
+  developerId = artifactInfo.developerId
+  developerName = artifactInfo.developerName
+  developerEmail = artifactInfo.developerEmail
+  organization = artifactInfo.organization
+  licenseName = artifactInfo.licenseName
+  licenseUrl = artifactInfo.licenseUrl
+  allLicenses = artifactInfo.allLicenses
 }
 
 apply from: '../install.gradle'
@@ -51,15 +52,18 @@ apply from: '../bintray.gradle'
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-  implementation "com.google.firebase:firebase-firestore:$firebaseVersion"
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-  implementation "com.android.support:support-annotations:$supportLibraryVersion"
-  // Testing
-  testImplementation "junit:junit:$junitVersion"
-  testImplementation "com.nhaarman:mockito-kotlin:$kotlinMockitoVersion"
-  testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+  implementation libs.rxJava
+  implementation libs.firestore
+  implementation libs.kotlin
+  implementation libs.supportAnnotations
 }
+
+dependencies {
+  testImplementation libs.junit
+  testImplementation libs.kotlinMockito
+  testImplementation libs.mockitoCore
+}
+
 repositories {
   mavenCentral()
 }

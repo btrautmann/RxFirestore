@@ -7,7 +7,6 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
@@ -16,15 +15,21 @@ import java.util.concurrent.Executor;
  */
 public final class RxFirestoreDb {
 
+  private RxFirestoreDb() throws IllegalAccessException {
+    throw new IllegalAccessException("This is a utility class and cannot be instantiated.");
+  }
+
   /**
    * Listens for {@link DocumentSnapshot}s at the given {@link DocumentReference}
    *
-   * @param documentReference the {@link DocumentReference} to listen to {@link DocumentSnapshot}s on
+   * @param documentReference the {@link DocumentReference} to listen to
+   * {@link DocumentSnapshot}s on
    * @return {@link Observable<DocumentSnapshot>}
    */
   @NonNull
   @CheckResult
-  public static Observable<DocumentSnapshot> documentSnapshots(@NonNull DocumentReference documentReference) {
+  public static Observable<DocumentSnapshot> documentSnapshots(@NonNull DocumentReference
+                                                                     documentReference) {
     return Observable.create(new DocumentSnapshotsOnSubscribe(documentReference));
   }
 
@@ -57,13 +62,17 @@ public final class RxFirestoreDb {
   /**
    * Listens for {@link QuerySnapshot}s at the given {@link Query}, but instead of passing them
    * directly back like {@link RxFirestoreDb#querySnapshots(Query)}, this bundles the resulting
-   * {@link DocumentSnapshot}s in a {@link QueryObjectsResponse<T>}, which contains a {@link java.util.List}
+   * {@link DocumentSnapshot}s in a {@link QueryObjectsResponse<T>}, which contains a
+   * {@link java.util.List}
    * of T objects, and {@link java.util.List} of {@link String}s that are the IDs of the
-   * {@link DocumentReference}. This allows RxFirestore to have no knowledge of how you've defined your object
+   * {@link DocumentReference}s. This allows RxFirestore to have no knowledge of how you've defined your object
    * <p>
-   * This method will likely be deprecated in the future because {@link QueryObjectsResponse<T>} should
-   * really contain a {@link java.util.Map} and not two {@link java.util.List}s. Also, we could create
-   * an object that library consumers can extend which would contain a document ID itself, and then we could
+   * This method will likely be deprecated in the future because {@link QueryObjectsResponse<T>}
+   * should
+   * really contain a {@link java.util.Map} and not two {@link java.util.List}s. Also, we could
+   * create
+   * an object that library consumers can extend which would contain a document ID itself, and
+   * then we could
    * pass back a simple object.
    *
    * @param query       the {@link Query} to listen to {@link QuerySnapshot}s on
@@ -73,7 +82,8 @@ public final class RxFirestoreDb {
    */
   @NonNull
   @CheckResult
-  public static <T> Observable<QueryObjectsResponse<T>> queryObjects(@NonNull Query query, Class<T> objectClass) {
+  public static <T> Observable<QueryObjectsResponse<T>> queryObjects(@NonNull Query query,
+                                                                     Class<T> objectClass) {
     return Observable.create(new QueryObjectsOnSubscribe<>(query, objectClass));
   }
 
@@ -81,17 +91,21 @@ public final class RxFirestoreDb {
    * Listens for {@link DocumentSnapshot}s at the given {@link DocumentReference}, but instead of
    * passing them directly back like {@link RxFirestoreDb#documentSnapshots(DocumentReference)},
    * this bundles the resulting {@link DocumentSnapshot} in a {@link QueryObjectResponse<T>}, which
-   * contains the single T object and a {@link String} that is the ID of the {@link DocumentReference}
+   * contains the single T object and a {@link String} that is the ID of the
+   * {@link DocumentReference}
    * This allows RxFirestore to have no knowledge of how you've defined your object
    *
-   * @param documentReference the {@link DocumentReference} to listen to {@link DocumentSnapshot}s on
+   * @param documentReference the {@link DocumentReference} to listen to
+   * {@link DocumentSnapshot}s on
    * @param objectClass       {@link Class} of the desired model
    * @param <T>               type of the model
    * @return {@link Observable<QueryObjectResponse>}
    */
   @NonNull
   @CheckResult
-  public static <T> Observable<QueryObjectResponse<T>> queryObject(@NonNull DocumentReference documentReference, Class<T> objectClass) {
+  public static <T> Observable<QueryObjectResponse<T>> queryObject(@NonNull DocumentReference
+                                                                         documentReference,
+                                                                   Class<T> objectClass) {
     return Observable.create(new QueryObjectOnSubscribe<>(documentReference, objectClass));
   }
 
@@ -99,7 +113,8 @@ public final class RxFirestoreDb {
    * Creates or overwrites a document at the given {@link DocumentReference}
    * <p>
    * Note, this is a <b>blocking</b> call because of how Firestore handles offline persistence.
-   * That means the onComplete() callback will not be called if the user is offline, so it is recommended
+   * That means the onComplete() callback will not be called if the user is offline, so it is
+   * recommended
    * not to block the UI until this completes
    *
    * @param reference the {@link DocumentReference} to create or set the document at
@@ -117,7 +132,8 @@ public final class RxFirestoreDb {
    * Creates or merges a document at the given {@link DocumentReference}
    * <p>
    * Note, this is a <b>blocking</b> call because of how Firestore handles offline persistence.
-   * That means the onComplete() callback will not be called if the user is offline, so it is recommended
+   * That means the onComplete() callback will not be called if the user is offline, so it is
+   * recommended
    * not to block the UI until this completes
    *
    * @param reference the {@link DocumentReference} to create or set the document at
@@ -127,7 +143,8 @@ public final class RxFirestoreDb {
    */
   @NonNull
   @CheckResult
-  public static <T> Completable setAndMerge(@NonNull DocumentReference reference, @NonNull T value) {
+  public static <T> Completable setAndMerge(@NonNull DocumentReference reference, @NonNull T
+      value) {
     return Completable.create(new SetOnSubscribe<>(reference, value, true));
   }
 
@@ -135,16 +152,18 @@ public final class RxFirestoreDb {
    * Updates a document at the given {@link DocumentReference}
    * <p>
    * Note, this is a <b>blocking</b> call because of how Firestore handles offline persistence.
-   * That means the onComplete() callback will not be called if the user is offline, so it is recommended
+   * That means the onComplete() callback will not be called if the user is offline, so it is
+   * recommended
    * not to block the UI until this completes
    *
    * @param reference the {@link DocumentReference} containing the document to update
-   * @param updates   a {@link HashMap} of updates to apply to the document
+   * @param updates   a {@link Map} of updates to apply to the document
    * @return {@link Completable}
    */
   @NonNull
   @CheckResult
-  public static Completable update(@NonNull DocumentReference reference, @NonNull Map<String, Object> updates) {
+  public static Completable update(@NonNull DocumentReference reference, @NonNull Map<String,
+      Object> updates) {
     return Completable.create(new UpdateOnSubscribe(reference, updates));
   }
 
@@ -152,7 +171,8 @@ public final class RxFirestoreDb {
    * Deletes the document at the given {@link DocumentReference}
    * <p>
    * Note, this is a <b>blocking</b> call because of how Firestore handles offline persistence.
-   * That means the onComplete() callback will not be called if the user is offline, so it is recommended
+   * That means the onComplete() callback will not be called if the user is offline, so it is
+   * recommended
    * not to block the UI until this completes
    *
    * @param reference the {@link DocumentReference} containing the document to delete
@@ -165,13 +185,14 @@ public final class RxFirestoreDb {
   }
 
   /**
-   * Adds a document at the given {@link DocumentReference}
+   * Adds a document at the given {@link CollectionReference}
    * <p>
    * Note, this is a <b>blocking</b> call because of how Firestore handles offline persistence.
-   * That means the onComplete() callback will not be called if the user is offline, so it is recommended
+   * That means the onComplete() callback will not be called if the user is offline, so it is
+   * recommended
    * not to block the UI until this completes
    *
-   * @param reference the {@link DocumentReference} at which to add the document
+   * @param reference the {@link CollectionReference} at which to add the document
    * @return {@link Completable}
    */
   @NonNull
@@ -202,10 +223,12 @@ public final class RxFirestoreDb {
    * instance
    * <p>
    * Note, this is a <b>blocking</b> call because of how Firestore handles offline persistence.
-   * That means the onComplete() callback will not be called if the user is offline, so it is recommended
+   * That means the onComplete() callback will not be called if the user is offline, so it is
+   * recommended
    * not to block the UI until this completes
    *
-   * @param database    the {@link FirebaseFirestore} database instance to run the {@link Transaction}
+   * @param database    the {@link FirebaseFirestore} database instance to run the
+   * {@link Transaction}
    *                    on
    * @param transaction the {@link Transaction} to run
    * @param <T>         the type of {@link Transaction.Function}
@@ -219,10 +242,11 @@ public final class RxFirestoreDb {
   }
 
   /**
-   * Comments a {@link WriteBatch} (series of writes <b>only</b>)
+   * Commits a {@link WriteBatch} (series of writes <b>only</b>)
    * <p>
    * Note, this is a <b>blocking</b> call because of how Firestore handles offline persistence.
-   * That means the onComplete() callback will not be called if the user is offline, so it is recommended
+   * That means the onComplete() callback will not be called if the user is offline, so it is
+   * recommended
    * not to block the UI until this completes
    *
    * @param batch the {@link WriteBatch} to be committed
@@ -238,18 +262,22 @@ public final class RxFirestoreDb {
    * Deletes an entire collection at the given {@link CollectionReference}
    * <p>
    * Note, this is a <b>blocking</b> call because of how Firestore handles offline persistence.
-   * That means the onComplete() callback will not be called if the user is offline, so it is recommended
-   * not to block the UI until this completes. Also, it would be smart to use an artificially high batch size,
-   * because the first deletion batch will never complete if the user is offline, thus causing the entire
+   * That means the onComplete() callback will not be called if the user is offline, so it is
+   * recommended
+   * not to block the UI until this completes. Also, it would be smart to use an artificially
+   * high batch size,
+   * because the first deletion batch will never complete if the user is offline, thus causing
+   * the entire
    * collection to not be deleted.
    * <p>
    * If you are using this method to clean up sub-collections of a deleted document, consider using
    * a Firestore Function instead.
    *
-   * @param collectionReference the {@link CollectionReference} pointing to the collection to be deleted
+   * @param collectionReference the {@link CollectionReference} pointing to the collection to be
+   *                            deleted
    * @param batchSize           the size of batches to delete in
    * @param executor            the {@link Executor} to use when running delete {@link com.google.android.gms.tasks.Task}s
-   * @return
+   * @return {@link Completable}
    */
   @NonNull
   @CheckResult
@@ -260,7 +288,8 @@ public final class RxFirestoreDb {
   }
 
   /**
-   * Gets the {@link QuerySnapshot} for the given {@link CollectionReference}. This is different from
+   * Gets the {@link QuerySnapshot} for the given {@link CollectionReference}. This is different
+   * from
    * the real-time listening methods in that it completes upon fetching the collection
    *
    * @param collectionReference the {@link CollectionReference} containing the collection to fetch
@@ -268,7 +297,8 @@ public final class RxFirestoreDb {
    */
   @NonNull
   @CheckResult
-  public static Single<QuerySnapshot> getCollection(@NonNull CollectionReference collectionReference) {
+  public static Single<QuerySnapshot> getCollection(@NonNull CollectionReference
+                                                          collectionReference) {
     return Single.create(new GetCollectionOnSubscribe(collectionReference));
   }
 

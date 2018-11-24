@@ -1,0 +1,15 @@
+apply plugin: 'checkstyle'
+check.dependsOn 'checkstyle'
+
+checkstyle {
+  toolVersion = "8.14"
+}
+
+task checkstyle(type: Checkstyle) {
+  configFile file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+  source 'src'
+  include '**/*.java'
+  exclude '**/gen/**'
+
+  classpath = files()
+}

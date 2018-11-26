@@ -1,7 +1,7 @@
 ext.artifactInfo = [
   // Publishing
-  libraryVersion : '1.1.1',
-  libraryVersionName : '1.1.1',
+  libraryVersion : '1.2.0',
+  libraryVersionName : '1.2.0',
   bintrayRepo : 'maven',
   publishedGroupId : 'com.oakwoodsc.rxfirestore',
   libraryDescription : 'An RxJava2 wrapper for Cloud Firestore',

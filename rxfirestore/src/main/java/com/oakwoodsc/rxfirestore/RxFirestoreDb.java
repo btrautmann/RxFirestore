@@ -2,7 +2,6 @@ package com.oakwoodsc.rxfirestore;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
-
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
@@ -12,13 +11,12 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
-
-import java.util.Map;
-import java.util.concurrent.Executor;
-
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+
+import java.util.Map;
+import java.util.concurrent.Executor;
 
 /**
  * The main class used to interact with Cloud Firestore
@@ -209,6 +207,23 @@ public final class RxFirestoreDb {
   @CheckResult
   public static <T> Completable add(@NonNull CollectionReference reference, T value) {
     return Completable.create(new AddOnSubscribe<>(reference, value));
+  }
+
+  /**
+   * Adds a document at the given {@link CollectionReference}, then returns its {@link DocumentReference}. This is
+   * useful when the auto-generated ID of the new document is needed.
+   * <p>
+   * Note, this is a <b>blocking</b> call because of how Firestore handles offline persistence.
+   * That means the onComplete() callback will not be called if the user is offline, so it is recommended
+   * not to block the UI until this completes
+   *
+   * @param reference the {@link CollectionReference} at which to add the document
+   * @return {@link Single}
+   */
+  @NonNull
+  @CheckResult
+  public static <T> Single<DocumentReference> addAndProvideDocId(@NonNull CollectionReference reference, T value) {
+    return Single.create(new AddOnSubscribe<>(reference, value));
   }
 
   /**
